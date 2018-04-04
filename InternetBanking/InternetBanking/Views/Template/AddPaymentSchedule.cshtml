@@ -1,0 +1,41 @@
+﻿@model InternetBanking.ViewModels.PaymentScheduleViewModel
+
+    
+<section class="table-content">
+    <h2>Добавление расписания</h2>
+    <br/>
+    <div style="font-size: 24px;color: black"> @Model.TemplateName</div>
+    <br/>
+    <form method="post" asp-controller="Template" asp-action="AddPaymentSchedule" asp-route-templateId="@Model.TemplateId" >
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <label asp-for="IntervalCode"></label><br />
+                <select class="form-control" asp-for="IntervalCode" asp-items="@Model.IntervalTypes">
+                    <option value="0"> Выберите интервал</option>
+                </select>
+                <div><span class="validation" asp-validation-for="IntervalCode"></span></div>
+            </div>
+            <div>
+                <label asp-for="DateStart"></label><br />
+                <input type="date" class="form-control" asp-for="DateStart" />
+                <div>
+                    <span class="validation" asp-validation-for="DateStart"></span>
+                </div>
+            </div>
+            <div>
+                <label asp-for="DateEnd"></label><br />
+                <input type="date"  class="form-control" value="@Model.DateEnd" asp-for="DateEnd" />
+                <div>
+                    <span class="validation" asp-validation-for="DateEnd"></span>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Сохранить" class="btn btn-primary"/>
+            </div>
+        </div>
+    </form>
+                   
+                    
+</section>

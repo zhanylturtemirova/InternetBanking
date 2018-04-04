@@ -1,0 +1,27 @@
+﻿@using InternetBanking.ViewModels
+@model InternetBanking.ViewModels.AddDocumentFileViewModel
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section">
+<h2 style="margin-top: 34px;">Добавить файл</h2>
+<form method="post" asp-controller="Document" asp-action="AddDocument" enctype="multipart/form-data">
+<div asp-validation-summary="ModelOnly"></div>
+<div>
+    <div>
+        <label asp-for="TypeOfTransferId"></label><br />
+        <select class="select" asp-for="TypeOfTransferId" asp-items="@Model.TypeOfTransfer">
+            <option value="">Please select one</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="FileDocument"></label><br />
+        <input type="file" name="FileDocument" accept="file/*" />
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary admin-button" value="Регистрация" />
+    </div>
+</div>
+</form>
+</section>

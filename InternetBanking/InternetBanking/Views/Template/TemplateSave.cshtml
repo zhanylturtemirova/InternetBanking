@@ -1,0 +1,113 @@
+﻿@model InternetBanking.ViewModels.TemplateViewModel
+@{
+    ViewData["Title"] = "TemplateSave";
+}
+
+<section class="form-section" style="margin-bottom: 100px;">
+    <h2>Шаблон</h2>
+
+    <form method="post" asp-controller="Template" asp-action="TemplateSave" >
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="TemplateId" />
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+
+            <div>
+                <label asp-for="TempalteName"></label><br />
+                <input class="form-control" asp-for="TempalteName" />
+                <div><span class="validation" asp-validation-for="TempalteName"></span></div>
+            </div>
+            <div>
+                <label asp-for="TemplateDiscription"></label><br />
+                <textarea class="form-control" asp-for="TemplateDiscription"></textarea>
+                <div><span class="validation" asp-validation-for="TemplateDiscription"></span></div>
+            </div>
+            <div><label asp-for="IsSetSchedule"></label><br />
+                <input type="checkbox"  onclick="open_close_ScheduleForm()" asp-for="IsSetSchedule"/>
+            </div>
+
+            @if (Model.IsSetSchedule)
+            {
+                <div id="schedule-form">
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.IntervalCode"></label><br />
+                        <select class="form-control" asp-for="PaymentScheduleViewModel.IntervalCode" asp-items="@Model.PaymentScheduleViewModel.IntervalTypes">
+                            <option value="0">Выберите интервал</option>
+                        </select>
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.IntervalCode"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.DateStart"></label><br />
+                        <input type="date" class="form-control" asp-for="PaymentScheduleViewModel.DateStart" />
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.DateStart"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.DateEnd"></label><br />
+                        <input type="date" value="" class="form-control" asp-for="PaymentScheduleViewModel.DateEnd" />
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.DateEnd"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div id="schedule-form" style="display: none;">
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.IntervalCode"></label><br />
+                        <select class="form-control" asp-for="PaymentScheduleViewModel.IntervalCode" asp-items="@Model.PaymentScheduleViewModel.IntervalTypes">
+                            <option value="0">Выберите интервал</option>
+                        </select>
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.IntervalCode"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.DateStart"></label><br />
+                        <input type="date" class="form-control" asp-for="PaymentScheduleViewModel.DateStart" />
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.DateStart"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="PaymentScheduleViewModel.DateEnd"></label><br />
+                        <input type="date" value="" class="form-control" asp-for="PaymentScheduleViewModel.DateEnd" />
+                        <div>
+                            <span class="validation" asp-validation-for="PaymentScheduleViewModel.DateEnd"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+        </div>
+        <div style="margin-top: 12px;">
+            <input type="submit" class="btn btn-primary" onclick="return name " value="Сохранить" />
+        </div>
+
+        
+    </form>
+</section><br/>
+<br/>
+<br/>
+
+@section Scripts
+{
+    <script>
+        function open_close_ScheduleForm() {
+            
+            if (document.getElementById('schedule-form').style.display === 'none') {
+                document.getElementById('schedule-form').style.display = 'inline-block';
+            } else {
+                document.getElementById('schedule-form').style.display = 'none';
+            }
+            console.log("jr");
+        }
+    </script>
+}
+

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3099C98-0DB7-4788-A249-240764ECA4C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AcceptionsTest</RootNamespace>
+    <AssemblyName>AcceptionsTest</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.Automation.6.1.7601.17515\lib\net45\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=3.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.9.1\lib\net45\WebDriver.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppPublishHook.cs" />
+    <Compile Include="Features\Login.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Registration.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Registration.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\AddressType.cs" />
+    <Compile Include="Model\ApplicationDbContext.cs" />
+    <Compile Include="Model\Bank.cs" />
+    <Compile Include="Model\BankInfo.cs" />
+    <Compile Include="Model\Company.cs" />
+    <Compile Include="Model\ContactInfo.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\DocumentType.cs" />
+    <Compile Include="Model\EmployeeInfo.cs" />
+    <Compile Include="Model\ExchangeRate.cs" />
+    <Compile Include="Model\ExchangeRateType.cs" />
+    <Compile Include="Model\InnerTransfer.cs" />
+    <Compile Include="Model\InterBankTransfer.cs" />
+    <Compile Include="Model\IntervalType.cs" />
+    <Compile Include="Model\ModelData.cs" />
+    <Compile Include="Model\PassportInfo.cs" />
+    <Compile Include="Model\PaymentSchedule.cs" />
+    <Compile Include="Model\RegistrationData.cs" />
+    <Compile Include="Model\Template.cs" />
+    <Compile Include="Model\Transaction.cs" />
+    <Compile Include="Model\TransactionType.cs" />
+    <Compile Include="Model\TransferState.cs" />
+    <Compile Include="Model\TypeOfTransfer.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="Model\Сurrency.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\RegisterCompanyFailedEmptyFieldsSteps.cs" />
+    <Compile Include="Steps\RegisterCompanySuccessSteps.cs" />
+    <Compile Include="Steps\RegisterCompanyWrongDataSteps.cs" />
+    <Compile Include="Steps\RegisterEmployeeFailedEmptyFieldsSteps.cs" />
+    <Compile Include="Steps\RegisterPersonFailedEmpyFieldsSteps.cs" />
+    <Compile Include="Steps\AccessAdminAuthorizationSteps.cs" />
+    <Compile Include="Steps\AuthorizationUserFailedSteps.cs" />
+    <Compile Include="Steps\RegisterPersonFailedWrongDataSteps.cs" />
+    <Compile Include="Steps\RegisterPersonSuccessSteps.cs" />
+    <Compile Include="TestAssistant.cs" />
+    <Compile Include="ViewModels\AddCompanyViewModel.cs" />
+    <Compile Include="ViewModels\ContactInfoViewModel.cs" />
+    <Compile Include="ViewModels\FactAddressViewModel.cs" />
+    <Compile Include="ViewModels\LegalAddressViewModel.cs" />
+    <Compile Include="ViewModels\PassportInfoViewModel.cs" />
+    <Compile Include="ViewModels\PlaceOfBirthViewModel.cs" />
+    <Compile Include="ViewModels\RegisterEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\RegisterPersonViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="WebDriverManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Features\Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Registration.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Registration.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,243 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model InternetBanking.ViewModels.CurrencyConversionViewModel
+@{
+    ViewData["Title"] = "UserCurrencyConvension";
+}
+<!DOCTYPE html>
+
+
+
+    <section class="form-section">
+
+        <div class="container">
+            <div class="card card-container" style="margin-top: 20px;">
+
+
+
+                <div id="exchangeRatesPartialView">
+
+                </div>
+
+
+
+                <form method="post" asp-controller="ExchangeRate" asp-action="ConvertUserCurrency">
+                    <div asp-validation-summary="ModelOnly"></div>
+                   
+                    <table class="table table-bordered " >
+                        <thead>
+                        <tr>
+                            <th colspan="3">Параметры конвертации</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">Курсы, по которым проходит конвертация, определяются в момент совершения операции </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>
+                                Со счета
+                            </td>
+                            <td>
+
+                                <div>
+                                    <br />
+
+                                    <select class="form-control" asp-for="AccountSenderId" asp-items="@Model.UserAccounts" id="currencySendNumber">
+                                        <option value="">Выберите счет, с которого хотите осуществить конвертацию</option>
+                                    </select>
+                                    <div> <span id="validation" class="validation" asp-validation-for="AccountSenderId"></span></div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <span id="currencyFrom_name"></span>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Введите сумму</td>
+                            <td>
+
+                                <input id="ammountSend" asp-for="@Model.AmountSend" type="text" placeholder="0.00" required autofocus title="Header" data-toggle="popover" data-trigger="hover" data-content="введите сумму">
+                                <span id="validation" asp-validation-for="@Model.AmountSend"></span>
+                            </td>
+                            <td>
+                                <div id="currencyFrom_name">
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                На счет
+                            </td>
+                            <td>
+
+                                <div>
+                                    <br />
+
+                                    <select class="form-control" asp-for="AccountReceiverId" asp-items="@Model.UserAccounts" id="currencyReceiveNumber">
+                                        <option value="">Выберите счет, который  хотите пополнить конвертируемой суммой</option>
+                                    </select>
+                                    <div> <span id="validation" class="validation" asp-validation-for="AccountReceiverId"></span></div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div id="currencyTo_name">
+
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Сконвертированная сумма</td>
+                            <td>
+
+                                <span id="ammountReceive" asp-for="@Model.AmountReceive" type="text" placeholder="0.00"> </span>
+                                <input id="inputAmount" asp-for="@Model.AmountReceive" type="text" style="display:none" onchange="setAmount()">
+
+                                <span id="validation" asp-validation-for="@Model.AmountReceive"></span>
+                            </td>
+                            <td>
+                                <div id="currencyTo_name">
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 12px;">
+
+                        <input type="button" id="calculateButton" class="btn btn-primary" value="Рассчитать" />
+                        <input type="submit" id="saveButton" class="btn btn-primary" value="Сохранить" />
+                       
+                        <div style="display: inline-block">
+                            <input type="button"class="btn btn-primary" value="Скачать" onclick="location.href='@Url.Action("DownloadFile", "ExchangeRate",new{name=@ViewBag.FileName})'" />
+                        </div>
+                       
+                    </div>
+                    @if (!string.IsNullOrEmpty(ViewBag.successMessage))
+                   
+                    {
+                        <script type="text/javascript">
+                            alert("Конвертация прошла успешно");
+                        </script>
+                    }
+                   
+                </form>
+                
+            </div>
+        </div>
+
+        
+
+    </section>
+
+
+
+@section Scripts{
+    <script>
+
+
+        $(document).ready(function() {
+            loadTable();
+
+        });
+        function loadTable() {
+            $('#exchangeRatesPartialView').load('@Url.Action("GetExchangeRatePartialView", "ExchangeRate")');
+
+            setTimeout(loadTable, 1000);
+        }
+
+
+        $('select#currencySendNumber').change(function(e) {
+            e.preventDefault();
+            var id = $(this).val();
+            id = encodeURIComponent(id);
+            $('#ammountSend').val('');
+            document.getElementById('validation').textContent = '';
+
+            $("#currencyFrom_name").load('@Url.Action("GetCurrencyName", "ExchangeRate")?id=' + id);
+
+
+        });
+        $('select#currencyReceiveNumber').change(function(e) {
+            e.preventDefault();
+            var id = $(this).val();
+            id = encodeURIComponent(id);
+            document.getElementById('ammountReceive').textContent = '';
+            document.getElementById('validation').textContent = '';
+
+            $("#currencyTo_name").load('@Url.Action("GetCurrencyName", "ExchangeRate")?id=' + id);
+
+
+        });
+
+
+        document.getElementById("ammountSend").onchange = function() {myFunction()};
+        function myFunction() {
+            document.getElementById('validation').textContent = '';
+        }
+
+        $('#calculateButton').click(function(e) {
+            e.preventDefault();
+            var accountSenderId = $('#currencySendNumber').val();
+            var accountReceiverId = $('#currencyReceiveNumber').val();
+            var ammountSend = $('#ammountSend').val();
+            accountSenderId = encodeURIComponent(accountSenderId);
+            accountReceiverId = encodeURIComponent(accountReceiverId);
+            ammountSend = encodeURIComponent(ammountSend);
+            $('#ammountReceive').load('@Url.Action("CurrencyConverter", "ExchangeRate")?accountSenderId=' +
+                accountSenderId +
+                '&accountReceiverId=' +
+                accountReceiverId +
+                '&ammountSend=' +
+                ammountSend);
+
+            var a = document.getElementById("ammountReceive").innerHTML;
+
+            setTimeout(SetAmount, 500);
+            
+        });
+
+        function SetAmount() {
+            $('#inputAmount').val(document.getElementById("ammountReceive").innerHTML);
+        };
+
+        function PrintPanel() {
+          
+            var panel = document.getElementById("pnlContents") ;
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(panel.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function () {
+                printWindow.print();
+            }, 500);
+            return false;
+        }
+
+        //function openPdf(e, path, redirect) {
+            
+        //    e = e || window.event; // for IE
+        //    e.preventDefault(); 
+
+        //    // launch a new window with your PDF
+        //    window.open(path, 'Conversion.pdf', ... /* options */);
+
+        //    // redirect current page to new location
+        //    window.location = redirect;
+        //}
+
+    </script>
+}

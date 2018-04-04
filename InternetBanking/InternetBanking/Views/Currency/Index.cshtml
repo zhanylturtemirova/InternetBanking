@@ -1,0 +1,58 @@
+﻿@model List<InternetBanking.Models.Currency>
+
+@{
+    Layout = "_Layout2";
+}
+
+
+<section class="form-section" style="margin-top:40px">
+    <h2 class="title">Валюты</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-default">Добавить</a>
+    </p>
+
+  
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Наименование
+                    </th>
+                    <th>
+                        Код
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Code
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> 
+                           
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+</section>

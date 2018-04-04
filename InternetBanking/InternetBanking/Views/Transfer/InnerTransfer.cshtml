@@ -1,0 +1,72 @@
+﻿@model InternetBanking.ViewModels.InnerTransferViewModel
+@{
+    ViewData["Title"] = "InnerTransfer";
+}
+
+<section class="table-content">
+    <h2>Внутрибанковский перевод</h2>
+
+    <form method="post" asp-controller="Transfer" asp-action="InnerTransfer" >
+        <input type="hidden" asp-for="TemplateId" />
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <br />
+                <label asp-for="AccountSenderId"></label><br />
+                <select class="form-control" asp-for="AccountSenderId" asp-items="@Model.UserAccounts">
+                    <option value="">Выберите свой счет</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="AccountSenderId"></span></div>
+            </div>
+            <div>
+
+                <label asp-for="ReceiverAccountNumber"></label><br />
+                <input class="form-control" type="number" asp-for="ReceiverAccountNumber" />
+                <div><span class="validation" asp-validation-for="ReceiverAccountNumber"></span></div>
+            </div>
+            <div>
+                <label asp-for="Amount"></label><br />
+                <input class="form-control" oninput="up(this)" step="0.01" id="amountinput" placeholder="0,00" asp-for="Amount" />
+                <div><span class="validation" asp-validation-for="Amount"></span></div>
+            </div>
+            <div>
+                <label asp-for="Comment"></label><br />
+                <textarea class="form-control" asp-for="Comment"></textarea>
+                <div><span class="validation" asp-validation-for="Comment"></span></div>
+            </div>
+            @if (Model.Template == null)
+            {
+                <div class="input-group">
+                    <label asp-for="SaveInTempalte"></label><br/>
+                    <input type="radio" asp-for="SaveInTempalte" value=true/>Сохранить
+                    <input type="radio" asp-for="SaveInTempalte" value=false/>Не сохранить
+                </div>
+            }
+           <div style="margin-top: 12px;">
+                <input type="submit" class="btn btn-primary" onclick="return name " value="Перевести" />
+            </div>
+        </div>
+    </form>
+</section>
+
+@section Scripts{ 
+    
+    
+    <script>
+        document.getElementById('amountinput').onkeypress = function (e) {
+            if (this.value.indexOf(".") != '-1' || this.value.indexOf(",") != '-1') {
+                return !(/[.,]/.test(String.fromCharCode(e.charCode)));
+            }
+        }
+   
+        function up(e) {
+            if (e.value.indexOf(".") != '-1') {
+                e.value=e.value.substring(0, e.value.indexOf(".") + 3);
+            }
+        }
+          
+    </script>
+   
+    
+    
+}

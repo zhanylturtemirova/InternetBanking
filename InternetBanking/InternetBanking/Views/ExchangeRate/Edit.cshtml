@@ -1,0 +1,69 @@
+﻿@model InternetBanking.ViewModels.ExchangeRateViewModel
+
+@{
+    Layout = "_Layout2";
+    ViewData["Title"] = "Изменение курса";
+}
+
+<section class="form-section">
+    <h2 style="margin-top: 34px;">Изменение курса</h2>
+
+    
+        <div class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <label asp-for="CurrencyId" class="control-label"></label>
+                @using (Html.BeginForm(method: FormMethod.Post, controllerName: "ExchangeRate", actionName: "Edit"))
+                {
+                    @Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.CurrencyList, "Id", "Name"), new { @class = "form-control" })
+                    <div>
+                        <span asp-validation-for="CurrencyId" class="validation"></span>
+                    </div>
+                   
+                <div class="form-group">
+                    <label asp-for="RateForSale" class="control-label"></label>
+                    <input asp-for="RateForSale" class="form-control" oninput="up(this)" step="0.01" id="rateinput" />
+                    <div>
+                        <span asp-validation-for="RateForSale" class="validation"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RateForPurchaise" class="control-label"></label>
+                    <input asp-for="RateForPurchaise" class="form-control" oninput="up(this)" step="0.01" id="rateinput" />
+                    <div>
+                        <span asp-validation-for="RateForPurchaise" class="validation"></span>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <input type="submit" value="Сохранить" class="btn btn-default" />
+
+                    </div>
+                    <input type="submit" value="Сохранить" class="btn btn-primary admin-button" />
+                    
+                }
+            </form>
+        </div>
+
+</section>
+
+@section Scripts{
+
+
+    <script>
+        document.getElementById('rateinput').onkeypress = function (e) {
+            if (this.value.indexOf(".") != '-1' || this.value.indexOf(",") != '-1') { // позволяет ввести или одну точку, или одну запятую
+                return !(/[.,]/.test(String.fromCharCode(e.charCode)));
+            }
+        }
+
+        function up(e) {
+            if (e.value.indexOf(".") != '-1') {
+                e.value = e.value.substring(0, e.value.indexOf(".") + 3);
+            }
+        }
+
+    </script>
+
+
+
+}

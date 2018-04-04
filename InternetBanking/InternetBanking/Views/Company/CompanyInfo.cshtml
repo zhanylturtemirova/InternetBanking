@@ -1,0 +1,292 @@
+﻿@model InternetBanking.ViewModels.CompanyEditViewModel
+
+@{
+    Layout = "_Layout2";
+    int increm = 0;
+}<section class="form-section">
+<h2 id="NameCompany" style="margin-top: 64px;" class="=title">@Model.Company.NameCompany</h2>
+<div style="text-align: right">
+    <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.Company.Id"  class="btn btn-default">Редактировать</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th style="width:30%">
+                Название
+            </th>
+            <th style="width:60%" colspan="2">
+                Значение
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Логотип
+            </td>
+            <td rowspan="1"><img src="~/@Model.LogoPath" width="100" height="100" /></td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.NameCompany)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.NameCompany)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a asp-action="Index" asp-controller="Employee" asp-route-id="@Model.Company.Id">Сотрудники</a>
+</td>
+            <td>
+                @foreach (EmployeeInfo employee in Model.EmployeeInfos)
+                {
+                    @Html.DisplayFor(model =>
+                employee.FirstName);
+                    increm = increm + 1;
+                    if (Model.EmployeeInfos.Count() != increm)
+                        {
+                        <span>, </span>
+                    }
+                    else
+                    {
+                        increm = 0;
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a id="Accounts" asp-action="Index" asp-controller="Account" asp-route-companyId="@Model.Company.Id">Счета</a>
+            </td>
+            <td>
+                @foreach (Account account in Model.Accounts)
+                {
+                    @Html.DisplayFor(model =>
+                account.Number);
+                    increm = increm + 1;
+                    if (Model.Accounts.Count() != increm)
+                    {
+                        <span>, </span>
+                    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.INN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.INN)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.CodeOKPO)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.CodeOKPO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.RegistrationNumberSocialFund)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.RegistrationNumberSocialFund)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.NumberOfEmployees)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.NumberOfEmployees)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.Country.CountryName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.Country.CountryName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.LegalForm.LegalFormName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.LegalForm.LegalFormName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.PropertyType.PropertyTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.PropertyType.PropertyTypeName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Company.Residency.ResidencyName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Company.Residency.ResidencyName)
+            </td>
+        </tr>
+        <tr><td><h4>Регистрационные данные</h4></td></tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.RegistrationData.RegistrationAuthority)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RegistrationData.RegistrationAuthority)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.RegistrationData.DateOfRegistrationMinistryJustice)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RegistrationData.DateOfRegistrationMinistryJustice)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.RegistrationData.IssuedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RegistrationData.IssuedBy)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.RegistrationData.DateOfInitialRegistration)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RegistrationData.DateOfInitialRegistration)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.RegistrationData.TaxInspection.TaxInspectionName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RegistrationData.TaxInspection.TaxInspectionName)
+            </td>
+        </tr>
+        <tr><td><h4>Юридический адрес</h4></td><td></td></tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LegalAddress.CountryId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LegalAddress.CountryName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LegalAddress.City)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LegalAddress.City)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LegalAddress.PostCode)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LegalAddress.PostCode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LegalAddress.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LegalAddress.Street)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LegalAddress.HouseAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LegalAddress.HouseAddress)
+            </td>
+        </tr>
+        <tr><td><h4>Адрес фактического местонахождения</h4></td><td></td></tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FactAddress.CountryId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FactAddress.CountryName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FactAddress.City)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FactAddress.City)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FactAddress.PostCode)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FactAddress.PostCode)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FactAddress.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FactAddress.Street)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.FactAddress.HouseAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FactAddress.HouseAddress)
+            </td>
+        </tr>
+        <tr><td><h4>Контактная информация</h4></td><td></td></tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ContactInfo.MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ContactInfo.MobilePhone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ContactInfo.CityPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ContactInfo.CityPhone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ContactInfo.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ContactInfo.Email)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</section>

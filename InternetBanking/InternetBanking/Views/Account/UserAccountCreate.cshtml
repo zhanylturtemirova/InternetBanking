@@ -1,0 +1,50 @@
+﻿@using InternetBanking.Models.SelectTable
+@model InternetBanking.ViewModels.CreateUserAccountViewModel
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section">
+    <h2 style="margin-top: 34px;">Добавление счета</h2>
+    <form method="post" asp-controller="Account" asp-action="UserAccountCreate">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+
+            <input asp-for="UserId" type="hidden" value="@Model.UserId" />
+
+        </div>
+        <div>
+            <br>
+            <select id="CurrencySelect" class="selectpicker" asp-for="CurrencyId" asp-items="@Model.Currencies">
+                <option value=""><label asp-for="CurrencyId"></label></option>
+            </select>
+            <div>
+                <span class="validation" asp-validation-for="CurrencyId"></span>
+            </div>
+            <div>
+                <br>
+                <select id="LimitSelect" class="selectpicker" data-live-search="true" asp-for="LimitId" asp-items="@Model.Limits">
+                    <option value="">Выберите лимит</option>
+                </select>
+                <div>
+                    <span class="validation" asp-validation-for="LimitId"></span>
+                </div>
+
+            </div>
+        </div>
+        
+        <div style="margin-top: 34px;">
+            <input id="SendClick" type="submit" class="btn btn-default" value="Добавить" />
+        </div>
+    </form>
+</section>
+
+@section Scripts
+    {
+        <script>
+            $('.selectpicker').selectpicker({
+                size: @Model.Limits.Count() + 2
+
+            });
+</script>
+}
+

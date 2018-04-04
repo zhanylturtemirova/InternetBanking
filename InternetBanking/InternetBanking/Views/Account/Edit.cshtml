@@ -1,0 +1,94 @@
+﻿@model InternetBanking.ViewModels.EditAccountViewModel
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section">
+    <h2 class="title"> Редактирование счета</h2>
+    <h3> #@Model.UserAccounts[0].Account.Number</h3>
+    @if (Model.UserAccounts.Count != 0)
+    {
+        <form asp-action="Edit" asp-controller="Account" method="post">
+            <input type="hidden" asp-for="AccountId" value="@Model.AccountId" />
+            @if (Model.UserAccounts.Count(ua => ua.EmployeeId != null) != 0)
+                {
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Имя Фамилия Отчество</th>
+                            <th>Должность</th>
+                            <th>Право подписи</th>
+                            <th>Право создания</th>
+                            <th>Лимит</th>
+                        </tr>
+                        </thead>
+
+                            @for (int i = 0; i < Model.UserAccounts.Count; i++)
+                            {
+                                if (Model.UserAccounts[i].UserInfoId == null)
+                                {
+                                    <tr>
+                                        <td>@Model.UserAccounts[i].Employee.FirstName @Model.UserAccounts[i].Employee.SecondName @Model.UserAccounts[i].Employee.MiddleName</td>
+                                        <td>@Model.UserAccounts[i].Employee.Position</td>
+                                        <td>
+                                            @if (!Model.UserAccounts[i].Employee.Chief)
+                                            {
+                                                @Html.CheckBoxFor(m => m.UserAccounts[i].RightOfConfirmation)
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!Model.UserAccounts[i].Employee.Chief)
+                                            {
+                                                @Html.EditorFor(m => m.UserAccounts[i].RightOfCreate)
+
+                                            }
+                                        </td>
+                                        <td>
+                                            <select class="select" asp-for="UserAccounts[i].LimitId" asp-items="@Model.UserAccounts[i].Limits">
+                                                <option value=""><label asp-for="UserAccounts[i].LimitId"></label></option>
+                                            </select>
+                                            <div>
+                                                <span class="validation" asp-validation-for="UserAccounts[i].LimitId"></span>
+                                            </div>
+                                        </td>
+                                        @Html.HiddenFor(m => m.UserAccounts[i].EmployeeId, new { value = Model.UserAccounts[i].Employee.Id })
+                                    </tr>
+                                }
+
+
+
+                            }
+</table>
+            }
+            else
+            {
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>ФИО</td>
+                        <td>Лимит</td>
+                    </tr>
+                    @for (int i = 0; i < Model.UserAccounts.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.UserAccounts[i].UserInfo.FirstName @Model.UserAccounts[i].UserInfo.SecondName @Model.UserAccounts[i].UserInfo.MiddleName</td>
+                            <td>
+                                <select class="select" asp-for="UserAccounts[i].LimitId" asp-items="@Model.UserAccounts[i].Limits">
+                                    <option value=""><label asp-for="UserAccounts[i].LimitId"></label></option>
+                                </select>
+                                <div>
+                                    <span class="validation" asp-validation-for="UserAccounts[i].LimitId"></span>
+                                </div>
+                            </td>
+                            @Html.HiddenFor(m => m.UserAccounts[i].UserInfoId, new { value = Model.UserAccounts[i].UserInfoId })
+                        </tr>
+
+                    }
+                </table>
+            }
+            <input type="submit" class="btn btn-primary admin-button" value="Изменить" />
+        </form>
+    }
+</section>
+
+
+

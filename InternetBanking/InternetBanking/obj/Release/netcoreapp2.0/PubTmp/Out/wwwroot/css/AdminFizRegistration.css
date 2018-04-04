@@ -1,0 +1,90 @@
+section{
+	position: relative;
+	overflow: hidden;
+	padding: 30px;
+	padding-bottom: 100px;
+}
+
+.form{
+	overflow: hidden;
+	margin-bottom: 30px
+}
+
+.form h3{
+	font-size: 16px;
+	font-weight: 400;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+}
+
+.form .input-group{
+	overflow: hidden;
+	display: block;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+.form .input-label{
+	font-weight: 700;
+	text-align: right;
+}
+
+.form .form-control{
+	display: block;
+	width: 66%;
+	padding: 0 15px;
+	border-radius: 4px !important
+}
+
+.data-info select.form-control{
+	width: 80%
+}
+
+
+.data-info .select-form-wrapper .input-label{
+	float: left;
+	display: block;
+	width: 20%;
+	padding: 0 15px;
+}
+
+.data-info .form-control{
+	width: 58%;
+}
+
+.person-iformation .select-form-wrapper .input-label{
+	float: left;
+	display: block;
+	width: 25%;
+	padding: 0 15px;
+}
+.person-intelligence .radio{
+	display: inline-block;
+	margin-left: 30px;
+}
+
+.person-intelligence h4{
+	margin-left: 15px;
+	font-size: 16px;
+	font-weight: 500;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.person-intelligence .select-form-wrapper .input-label{
+	float: left;
+	display: block;
+	width: 20%;
+	padding: 0 15px;
+}
+
+.person-propiska .select-form-wrapper .input-label{
+	float: left;
+	display: block;
+	width: 24%;
+	padding: 0 15px;
+}
+.person-propiska .select-form-wrapper select.form-control{
+	width: 69%;
+}

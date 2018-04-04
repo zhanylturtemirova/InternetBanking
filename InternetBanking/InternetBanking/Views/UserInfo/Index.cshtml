@@ -1,0 +1,156 @@
+﻿@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<UserInfo>
+
+@{
+    Layout = "_Layout2";
+}
+
+
+<section class="form-section" style="margin-top: 40px">
+
+
+    <h2 class="title">Пользователи</h2>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body"  id="message-span">
+                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: right">
+        <a asp-action="RegisterPerson" asp-controller="User" class="btn btn-default">Добавить Клиента</a><br />
+    </div>
+    @if (TempData["AnswerToSend"] != null)
+    {
+        <span>@TempData["AnswerToSend"]</span>
+    }
+    <table class="table table-bordered table-hover" style="margin-top: 30px">
+
+        @foreach (UserInfo user in Model.Objects)
+        {
+
+            <tr>
+                <td>
+                    <a asp-action="UserInfo" asp-controller="UserInfo" asp-route-userId="@user.Id">@user.User.UserName</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="UserInfo" asp-route-userId="@user.Id">Редактировать</a>
+                </td>
+                <td>
+                    <a asp-action="UserAccounts" asp-controller="Account" asp-route-userId="@user.UserId">Счета</a>
+                </td>
+
+                <td>
+                    <a asp-action="AdminSendMessageToChangePassword" asp-controller="Manage" asp-route-userId="@user.UserId">Отправить ссылку на восстановление пароля</a>
+                </td>
+
+                <td id="actions-for-@user.UserId">
+                  
+                    @if (user.User.IsBlocked)
+                    { 
+                        <input type="button" value="Разблокировать"  onclick="unblockUser('@user.UserId')" class="btn btn-warning" id="btn-unblock-@user.UserId" />
+                    }
+
+                    @if (!user.User.IsBlocked)
+                    {
+                        <input type="button" value="Заблокировать"  onclick="blockUser('@user.UserId')" class="btn btn-danger" id="btn-block-@user.UserId" />
+                    }
+
+                </td>
+
+            </tr>
+
+        }
+    </table>
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</section>
+
+
+@section Scripts{
+    <script>
+
+        function blockUser(userId) {
+            $.ajax({
+                url: '@Url.Action("BlockUser", "Admin")',
+                type: 'POST',
+                data: { 'userId': userId },
+                success: function (data) {
+                    if (data.state === true) {
+                        document.getElementById('btn-block-' + userId).remove();
+                        document.getElementById('actions-for-' + userId).innerHTML = "<input type=\"button\" value=\"Разблокировать\"  onclick=\"unblockUser('" + userId +"')\" class=\"btn btn-warning\" id=\"btn-unblock-"+userId+"\" />";
+                        document.getElementById('message-span').innerHTML = data.message;
+                        $("#myModal").modal('show');
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+                    else {
+                        document.getElementById('message-span').className = "validation";
+                        document.getElementById('message-span').innerHTML = data.message;
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+
+
+                },
+                error: console.log('все плохо')
+            });
+        }
+
+        function unblockUser(userId) {
+            $.ajax({
+                url: '@Url.Action("UnBlockUser", "Admin")',
+                type: 'POST',
+                data: { 'userId': userId },
+                success: function (data) {
+                    if (data.state === true) {
+                        document.getElementById('btn-unblock-' + userId).remove();
+                        document.getElementById('actions-for-'+ userId).innerHTML = "<input type=\"button\" value=\"Заблокировать\"  onclick=\"blockUser('" + userId +"')\" class=\"btn btn-danger\" id=\"btn-block-"+userId+"\" />";
+                        document.getElementById('message-span').innerHTML = data.message;
+                        $("#myModal").modal('show');
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+                    else {
+                        document.getElementById('message-span').className = "validation";
+                        document.getElementById('message-span').innerHTML = data.message;
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+
+
+                },
+                error: console.log('все плохо')
+            });
+        }
+
+
+    </script>
+}
+

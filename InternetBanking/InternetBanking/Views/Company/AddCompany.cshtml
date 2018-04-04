@@ -1,0 +1,226 @@
+﻿@using InternetBanking.ViewModels
+@model InternetBanking.ViewModels.AddCompanyViewModel
+
+@{
+    Layout = "_Layout2";
+}
+
+
+<section class="form-section">
+    <h2 style="margin-top: 34px;">Регистрация нового пользователя</h2>
+    <form method="post" asp-controller="Company" asp-action="AddCompany" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="form person-name col-md-6">
+                <h3>Данные клиента</h3>
+                <div class="input-group">
+                    <label asp-for="NameCompany"></label><br />
+                    <input id="CompanyName" class="form-control" asp-for="NameCompany" />
+                    <div> <span id="NameCompanyValid" class="validation" asp-validation-for="NameCompany"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalFormId"></label><br />
+                    <select id="LegalForm" class="select" asp-for="LegalFormId" asp-items="@Model.LegalForms">
+                        <option value="">Please select one</option>
+                    </select>
+                    <div>
+                        <span id="LegalFormValid" class="validation" asp-validation-for="LegalFormId"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="PropertyTypeId"></label><br />
+                    <select id="PropertyType" class="select" asp-for="PropertyTypeId" asp-items="@Model.PropertyTypes">
+                        <option value="">Please select one</option>
+                    </select>
+                    <div> <span id="PropertyTypeValid" class="validation" asp-validation-for="PropertyTypeId"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="InnCompany"></label><br />
+                    <input id="Inn" class="form-control" asp-for="InnCompany" />
+                    <div>  <span id="InnValid" class="validation" asp-validation-for="InnCompany"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="OkpoCompany"></label><br />
+                    <input id="Okpo" class="form-control" asp-for="OkpoCompany" />
+                    <div> <span id="OkpoValid" class="validation" asp-validation-for="OkpoCompany"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="RegistrationNumberSocialFund"></label><br />
+                    <input id="SocialFundNumber" class="form-control" asp-for="RegistrationNumberSocialFund" />
+                    <div>  <span id="SocialFundNumberValid" class="validation" asp-validation-for="RegistrationNumberSocialFund"></span></div>
+                </div>
+            </div>
+            <div class="form data-info col-md-6">
+                <h3>Регистрационные Данные</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="RegistrationAuthority"></label><br />
+                        <input id="RegAuthority" class="form-control" asp-for="RegistrationAuthority" />
+                        <div> <span id="RegAuthorityValid" class="validation" asp-validation-for="RegistrationAuthority"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="DateOfRegistrationMinistryJustice"></label><br />
+                        <input id="DORministryJustice" type="date" class="form-control" asp-for="DateOfRegistrationMinistryJustice" />
+                        <div> <span id="DORministryJusticeValid" class="validation" asp-validation-for="DateOfRegistrationMinistryJustice"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="IssuedBy"></label><br />
+                        <input id="IssuedBy" class="form-control" asp-for="IssuedBy" />
+                        <div> <span id="IssuedByValid" class="validation" asp-validation-for="IssuedBy"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="DateOfInitialRegistration"></label><br />
+                        <input id="DateofInitialReg" type="date" class="form-control" asp-for="DateOfInitialRegistration" />
+                        <div><span id="DateofInitialRegValid" class="validation" asp-validation-for="DateOfInitialRegistration"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="TaxInspectionId"></label><br />
+                        <select id="TaxInspection" class="select" asp-for="TaxInspectionId" asp-items="@Model.TaxInspections">
+                            <option value="">Please select one</option>
+                        </select>
+                        <div> <span id="TaxInspectionValid" class="validation" asp-validation-for="TaxInspectionId"></span></div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form person-information col-md-6">
+                <h3>Резиденство</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="ResidencyId"></label><br />
+                        <select id="Residency" class="select" asp-for="ResidencyId" asp-items="@Model.Residencies">
+                            <option value="">Please select one</option>
+                        </select>
+                        <div><span id="ResidencyValid" class="validation" asp-validation-for="ResidencyId"></span></div>
+                    </div>
+                </div>
+
+                <h3>Гражданство</h3>
+                <div class="input-group">
+                    <label asp-for="CountryId"></label><br />
+                    <select class="select" asp-for="CountryId" asp-items="@Model.Countries">
+                        <option value="">Please select one</option>
+                    </select>
+                    <div> <span class="validation" asp-validation-for="CountryId"></span></div>
+                </div>
+            </div>
+            <div class="form person-intelligence col-md-6">
+                <h3>Сведения о клиенте</h3>
+
+                <div class="input-group">
+                    <label asp-for="NumberOfEmployees"></label><br />
+                    <input id="NumOfEmployees" class="form-control" type="number" asp-for="NumberOfEmployees" />
+                    <div><span class="validation" asp-validation-for="NumberOfEmployees"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form person-propiska col-md-6">
+                <h3>Юридический адрес</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="LegalAddress.CountryId"></label><br />
+                        <select class="select" asp-for="LegalAddress.CountryId" asp-items="@Model.LegalAddress.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <div> <span class="validation" asp-validation-for="LegalAddress.CountryId"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="LegalAddress.City"></label><br />
+                        <input class="form-control" asp-for="LegalAddress.City" />
+                        <div><span class="validation" asp-validation-for="LegalAddress.City"></span></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.PostCode"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.PostCode" />
+                    <div> <span class="validation" asp-validation-for="LegalAddress.PostCode"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.Street"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.Street" />
+                    <div><span class="validation" asp-validation-for="LegalAddress.Street"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.HouseAddress"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.HouseAddress" />
+                    <div> <span class="validation" asp-validation-for="LegalAddress.HouseAddress"></span></div>
+                </div>
+            </div>
+            <div class="form person-propiska col-md-6">
+                <h3>Адрес фактического местонахождения</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="FactAddress.CountryId"></label><br />
+                        <select class="select" asp-for="FactAddress.CountryId" asp-items="@Model.FactAddress.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <div> <span class="validation" asp-validation-for="FactAddress.CountryId"></span></div>
+                    </div>
+                </div>
+                <div class="select-form-wrapper ">
+                    <div class="input-group">
+                        <label asp-for="FactAddress.City"></label><br />
+                        <input class="form-control" asp-for="FactAddress.City" />
+                        <div> <span class="validation" asp-validation-for="FactAddress.City"></span></div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.PostCode"></label><br />
+                    <input class="form-control" asp-for="FactAddress.PostCode" />
+                    <div><span class="validation" asp-validation-for="FactAddress.PostCode"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.Street"></label><br />
+                    <input class="form-control" asp-for="FactAddress.Street" />
+                    <div> <span class="validation" asp-validation-for="FactAddress.Street"></span></div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.HouseAddress"></label><br />
+                    <input class="form-control" asp-for="FactAddress.HouseAddress" />
+                    <div> <span class="validation" asp-validation-for="FactAddress.HouseAddress"></span></div>
+                </div>
+                <div>
+                    <label asp-for="Logo"></label><br />
+                    <input class="form-control" type="file" name="Logo" accept="image/*" />
+                </div>
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="form contact-information col-md-6">
+                <h3>Контатная информация</h3>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.MobilePhone"></label><br />
+                    <input id="MobilePhone" class="form-control" placeholder="+ 996 XXX YYYYYY" type="text" asp-for="ContactInfo.MobilePhone"/>
+                    <span id="MobilePhoneValid" class="validation" asp-validation-for="ContactInfo.MobilePhone"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.CityPhone"></label><br />
+                    <input class="form-control" placeholder="0 XXXX YYYYYY" asp-for="ContactInfo.CityPhone" />
+                    <span class="validation" asp-validation-for="ContactInfo.CityPhone"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.Email"></label><br />
+                    <input class="form-control" asp-for="ContactInfo.Email" />
+                    <span id="EmailValid"class="validation" asp-validation-for="ContactInfo.Email"></span>
+                </div>
+                <div>
+                    <input id="SendClick" type="submit" class="btn btn-primary admin-button" value="Регистрация" />
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+

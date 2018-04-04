@@ -1,0 +1,35 @@
+﻿@model InternetBanking.ViewModels.CurrencyViewModel
+
+@{
+    Layout = "_Layout2";
+}
+
+
+<section class="form-section">
+    <h2 class="title">Создание валюты</h2>
+
+   
+    <div class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div >
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <div>
+                    <span class="validation" asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div >
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" type="number" />
+                <div>
+                    <span asp-validation-for="Code" class="validation"></span>
+                </div>
+            </div>
+            <div >
+                <input type="submit" value="Создать" class="btn btn-primary admin-button" />
+            </div>
+        </form>
+    </div>
+    
+</section>

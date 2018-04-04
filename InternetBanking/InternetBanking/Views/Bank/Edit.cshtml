@@ -1,0 +1,41 @@
+﻿@model InternetBanking.ViewModels.EditBankViewModel
+@{
+    Layout = "_Layout2";
+
+}
+<section class="form-section" style="margin-top:40px">
+    <h2 class="title">Редактировать банк</h2>
+
+    <form method="post" asp-controller="Bank" asp-action="Edit">
+        <input type="hidden" asp-for="Bank.Id" />
+        <input type="hidden" asp-for="Bank.BankInfo.Id" />
+        <input type="hidden" asp-for="Bank.BankInfoId" />
+
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div  class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                
+                    <div class="input-group">
+                        <label asp-for="BankInfo.BIK"></label><br/>
+                        <input type="number" class="form-control" asp-for="BankInfo.BIK"/>
+                        <span class="validation" asp-validation-for="BankInfo.BIK"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="BankInfo.BankName"></label><br/>
+                        <input class="form-control" type="text" asp-for="BankInfo.BankName"/>
+                        <span class="validation" asp-validation-for="BankInfo.BankName"></span>
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="BankInfo.Email"></label><br/>
+                        <input class="form-control" type="email" asp-for="BankInfo.Email"/>
+                        <span class="validation" asp-validation-for="BankInfo.Email"></span>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-primary admin-button" value="Редактировать"/>
+                    </div>
+                </div>
+            </div>
+      
+
+    </form>
+</section>

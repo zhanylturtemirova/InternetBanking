@@ -1,0 +1,143 @@
+﻿@using InternetBanking.ViewModels
+@using Microsoft.AspNetCore.Razor.Language.Intermediate
+@model AccountWithBalance
+
+@{
+    Layout = "_Layout2";
+}
+
+<section class="form-section">
+
+        <h2 class="title">Счет # @Model.Account.Number</h2>
+    
+        <table class="table table-hover table-bordered ">
+            <thead>
+            <tr>
+                <th style="width: 15%">
+                    Название
+                </th>
+                <th style="width: 60%" colspan="2">
+                    Значение
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Номер
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Account.Number)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Баланс
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Balance)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Валюта
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Account.Currency.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Состояние
+                </td>
+                
+                <td>
+                    @if (Model.Account.Locked)
+                    {
+                        <span id="account_state">Закрыт</span>
+                    }
+                    else
+                    {
+                        <span id="account_state">Открыт</span>
+                    }
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    <a asp-action="Edit" asp-controller="Account" asp-route-accountId="@Model.Account.Id" class="btn btn-default">Редактировать</a>
+  
+    <span id="actions">
+    @if (!Model.Account.Locked)
+    {
+        <input type="button" value="Заблокировать" id="account_action_block" class="btn btn-danger" onclick="blockAccount(@Model.Account.Id)"/>
+    }
+    else
+    {
+        <input type="button" value="Разблокировать" id="account_action_unblock" class="btn btn-warning btn-small" onclick="unblockAccount(@Model.Account.Id)" />
+    }
+    </span>
+
+
+
+
+
+</section>
+
+@section Scripts
+{
+    <script>
+        function blockAccount(accountId) {
+            $.ajax({
+                url: '@Url.Action("Block", "Account")',
+                type: 'POST',
+                data: { 'accountId': accountId },
+                success: function (data) {
+
+                    if (data.state) {
+                        document.getElementById('account_action_block').remove();
+                        document.getElementById('actions').innerHTML =
+                            "<input type=\"button\" value=\"Разблокировать\" id=\"account_action_unblock\" class=\"btn btn-warning btn-small\" onclick=\"unblockAccount(" +
+                            accountId +
+                            ")\" />";
+                        document.getElementById('account_state').innerHTML = "Закрыт";
+
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                error: console.log('все плохо')
+            });
+        }
+
+        function unblockAccount(accountId) {
+            $.ajax({
+                url: '@Url.Action("Unblock", "Account")',
+                type: 'POST',
+                data: { 'accountId': accountId },
+                success: function (data) {
+
+                    if (data.state) {
+                        document.getElementById('account_action_unblock').remove();
+                        document.getElementById('actions').innerHTML = "<input type=\"button\" value=\"Заблокировать\" id=\"account_action_block\" class=\"btn btn-danger\" onclick=\"blockAccount("+accountId+")\" />";
+                        document.getElementById('account_state').innerHTML = "Открыт";
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                },
+                error: console.log('все плохо')
+            });
+        }
+
+    </script>
+}
+
+
+
+
+
+
+
+
+

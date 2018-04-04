@@ -1,0 +1,62 @@
+﻿@model InternetBanking.ViewModels.RegisterEmployeeViewModel
+
+@{
+        Layout = "_Layout2";
+        ViewData["Title"] = "Редактирование сотрудника";
+}
+
+
+<section class="form-section">
+    <hr/>
+    <h2>Редактирование сотрудника</h2>
+    <form method="post" asp-controller="Employee" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly"></div>
+        @*<input typeEnum="hidden" asp-for="Id" class="form-control" />*@
+        <input type="hidden" asp-for="CompanyId" class="form-control" />
+        <input type="hidden" asp-for="UserId" class="form-control" />
+        <div class="row">
+        <div class="form person-name col-md-6">
+            <h3>Данные сотрудника</h3>
+            <div class="input-group">
+                <label asp-for="FirstName"></label><br />
+                <input class="form-control" asp-for="FirstName" />
+                <span class="validation" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="SecondName"></label><br />
+                <input class="form-control" asp-for="SecondName" />
+                <span class="validation" asp-validation-for="SecondName"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="MiddleName"></label><br />
+                <input class="form-control" asp-for="MiddleName" />
+                <span class="validation" asp-validation-for="MiddleName"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Position"></label><br />
+                <input class="form-control" asp-for="Position" />
+                <span class="validation" asp-validation-for="Position"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="Email"></label><br />
+                <input class="form-control" asp-for="Email" />
+                <span class="validation" asp-validation-for="Email"></span>
+            </div>
+            <div class="input-group">
+                <label asp-for="TwoFactorOn"></label><br />
+                <input type="radio" asp-for="TwoFactorOn" value=true />Вкл.
+                <input type="radio" asp-for="TwoFactorOn" value=false />Выкл.
+                <div>
+                    <span class="validation" asp-validation-for="TwoFactorOn"></span>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Сохранить" />
+            </div>
+        </div>
+        </div>
+
+        </form>
+</section>
+
+

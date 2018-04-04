@@ -1,0 +1,103 @@
+﻿@model InternetBanking.ViewModels.InterBankTransferViewModel
+@{
+    ViewData["Title"] = "InnerTransfer";
+}
+
+<section class="table-content">
+    <h2>Межбанковский перевод</h2>
+
+    <form method="post" asp-controller="Transfer" asp-action="InterTransfer">
+        <input type="hidden" asp-for="Transfer.TemplateId" />
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <br />
+                <label asp-for="PaymentCodeId"></label><br />
+                <select class="selectpicker" data-live-search="true" asp-for="PaymentCodeId" asp-items="@Model.PaymentCode">
+                    <option value="">Выберите код платежа</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="PaymentCodeId"></span></div>
+            </div>
+
+
+            <div>
+                <br />
+                <label asp-for="Transfer.AccountSenderId"></label><br />
+                <select class="selectpicker" asp-for="Transfer.AccountSenderId" asp-items="@Model.Transfer.UserAccounts">
+                    <option value="">Выберите свой счет</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="Transfer.AccountSenderId"></span></div>
+            </div>
+            <div>
+                <label asp-for="Transfer.Amount"></label><br />
+                <input class="form-control"  oninput="up(this)" step="0.01" id="amountinput" placeholder="0,00" asp-for="Transfer.Amount" />
+                <div><span class="validation" asp-validation-for="Transfer.Amount"></span></div>
+            </div>
+            <div>
+                <label asp-for="Transfer.Comment"></label><br />
+                <textarea class="form-control" asp-for="Transfer.Comment"></textarea>
+                <div><span class="validation" asp-validation-for="Transfer.Comment"></span></div>
+            </div>
+        </div>
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <br />
+                <label asp-for="BankId"></label><br />
+                <select class="selectpicker" asp-for="BankId" asp-items="@Model.Banks">
+                    <option value="">Выберите банк</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="BankId"></span></div>
+            </div>
+            <div>
+                <br />
+                <label asp-for="Transfer.ReceiverAccountNumber"></label><br />
+                <input class="form-control" type="number" asp-for="Transfer.ReceiverAccountNumber" />
+                <div><span class="validation" asp-validation-for="Transfer.ReceiverAccountNumber"></span></div>
+            </div>
+            <div>
+                <label asp-for="ReciverName"></label><br />
+                <input class="form-control" asp-for="ReciverName" />
+                <div> <span class="validation" asp-validation-for="ReciverName"></span></div>
+            </div>
+
+            @if (Model.Transfer.Template == null)
+        {
+            <div class="input-group">
+                <label asp-for="Transfer.SaveInTempalte"></label><br />
+                <input type="radio" asp-for="Transfer.SaveInTempalte" value=true />Сохранить
+                <input type="radio" asp-for="Transfer.SaveInTempalte" value=false />Не сохранять
+            </div>
+    }
+
+            <div style="margin-top: 12px;">
+                <input type="submit" class="btn btn-primary" onclick="return name " value="Перевести" />
+            </div>
+
+        </div>
+    </form>
+</section>
+
+@section Scripts{
+
+
+    <script>
+        $('.selectpicker').selectpicker({
+            size: @Model.PaymentCode.Count() + @Model.Banks.Count()
+        });
+        document.getElementById('amountinput').onkeypress = function (e) {
+            if (this.value.indexOf(".") != '-1' || this.value.indexOf(",") != '-1') {
+                return !(/[.,]/.test(String.fromCharCode(e.charCode)));
+            }
+        }
+
+        function up(e) {
+            if (e.value.indexOf(".") != '-1') {
+                e.value=e.value.substring(0, e.value.indexOf(".") + 3);
+            }
+        }
+
+    </script>
+
+
+
+}

@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Razor.TagHelpers
+@model InternetBanking.ViewModels.CompanyAccountCreateViewModel
+
+@{
+    Layout = "_Layout2";
+}
+
+    
+<section class="form-section">
+<h2 style="margin-top: 34px;">Добавление счета</h2>
+<form method="post" asp-controller="Account" asp-action="CompanyAccountCreate">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+
+        <input asp-for="CompanyId" type="hidden" value="@Model.CompanyId" />
+
+    </div>
+    <div>
+        <select id="CurrencySelect" class="select" asp-for="CurrencyId" asp-items="@Model.Currencies">
+            <option value=""><label asp-for="CurrencyId"></label></option>
+        </select>
+        <div style="margin-bottom: 10px;">
+            <span asp-validation-for="CurrencyId" class="validation"></span>
+        </div>
+    </div>
+    @if (Model.EmployeeAccounts.Count > 0)
+    {
+        <h3>Настройка доступа для сотрудников</h3>
+        <table class="table">
+            <tr>
+                <td>ФИО Сотрудника</td>
+                <td>Должность</td>
+                <td>Право подписи</td>
+                <td>Право создания</td>
+                <td>Лимит</td>
+            </tr>
+            @for (int i=0; i<Model.EmployeeAccounts.Count; i++)
+            {
+                <tr>
+                    <td>@Model.EmployeeAccounts[i].Employee.FirstName @Model.EmployeeAccounts[i].Employee.SecondName @Model.EmployeeAccounts[i].Employee.MiddleName</td>
+                    <td>@Model.EmployeeAccounts[i].Employee.Position</td>
+
+                
+                    <td>
+                        @if (!Model.EmployeeAccounts[i].Employee.Chief)
+                        {
+                            @Html.EditorFor(m => m.EmployeeAccounts[i].RightOfCreate, new { @class = "checkbox-primary checkbox-info" })
+                        }
+                    </td>
+                    <td>
+                        @if (!Model.EmployeeAccounts[i].Employee.Chief)
+                        {
+                            @Html.EditorFor(m => m.EmployeeAccounts[i].RightOfConfirmation, new { @class = "checkbox-primary checkbox-info" })
+                        }
+                    </td>
+
+                    
+                  
+                    <td><select id="LimitSelect" class="selectpicker"  data-live-search="true" asp-for="EmployeeAccounts[i].LimitId" asp-items="@Model.EmployeeAccounts[i].Limits">
+                            <option value="">Выберите лимит</option>
+
+                        </select>
+                            <span class="validation" asp-validation-for="EmployeeAccounts[i].LimitId"></span>
+                    </td>
+                    @Html.HiddenFor(m => m.EmployeeAccounts[i].EmployeeId, new { value = Model.EmployeeAccounts[i].Employee.Id })
+                    </tr>
+            }
+        </table>
+    }
+   
+    <div>
+        <input id="SendClick" type="submit" class="btn btn-default" value="Добавить" />
+    </div>
+</form>
+
+</section>
+@section Scripts
+{
+    <script>
+        $('.selectpicker').selectpicker({
+            size: @Model.EmployeeAccounts.First().Limits.Count() + 2
+
+        });
+
+
+    </script>
+   
+
+}

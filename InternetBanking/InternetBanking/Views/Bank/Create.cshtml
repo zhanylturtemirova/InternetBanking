@@ -1,0 +1,38 @@
+﻿@model InternetBanking.ViewModels.CreateBankViewModel
+
+@{
+    Layout = "_Layout2";
+    
+}
+<section class="form-section" style="margin-top:40px">
+    <h2 class="title">Добавить банк</h2>
+    
+    <form method="post" asp-controller="Bank" asp-action="Create">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            
+            <div  class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+                <div class="input-group">
+                    <label asp-for="BIK"></label><br/>
+                    <input type="number" class="form-control" asp-for="BIK"/>
+                    <span class="validation" asp-validation-for="BIK"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="BankName"></label><br/>
+                    <input type="text" class="form-control" asp-for="BankName"/>
+                    <span class="validation" asp-validation-for="BankName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="Email"></label><br/>
+                    <input type="email" class="form-control" asp-for="Email"/>
+                    <span class="validation" asp-validation-for="Email"></span>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary admin-button" value="Добавить"/>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+   
+</section>

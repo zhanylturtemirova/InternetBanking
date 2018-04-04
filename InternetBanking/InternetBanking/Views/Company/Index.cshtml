@@ -1,0 +1,65 @@
+﻿@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<Company>
+
+@{
+    Layout = "_Layout2";
+    ViewData["Title"] = "Компании";
+}
+<section class="form-section" sty">
+    <h2 class="title">Компании</h2>
+    <p>
+        <div style="text-align: right">
+            <a asp-action="AddCompany" asp-controller="Company" class="btn btn-default">Добавить</a>
+        </div>
+    </p>
+    <table class="table table-bordered tab-hover">
+        <thead>
+            <tr>
+                <th>
+                    Наименование
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Company company in Model.Objects)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="CompanyInfo" asp-controller="Company" asp-route-id="@company.Id">@company.NameCompany</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Company" asp-route-id="@company.Id">Редактировать</a>
+                    </td>
+                    <td>
+                        <a asp-action="Index" asp-controller="Employee" asp-route-id="@company.Id">Cотрудники</a>
+                    </td>
+                    <td>
+                        <a asp-action="Index" asp-controller="Account" asp-route-companyId="@company.Id">Счета</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+</section>

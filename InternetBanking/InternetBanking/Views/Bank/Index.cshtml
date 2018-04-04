@@ -1,0 +1,50 @@
+﻿@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<Bank>
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section" style="margin-top:40px">
+    <h1>Банки</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr><th>БИК</th><th>Имя</th><th></th></tr>
+        </thead>
+        @foreach (Bank bank in Model.Objects)
+        {
+            <tr>
+                <td>@bank.BIK</td>
+                <td>
+                    <a asp-action="BankInfo" asp-controller="Bank" asp-route-bankId="@bank.Id">@bank.BankInfo.BankName </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Bank" asp-route-bankId="@bank.Id">Редактировать</a>
+                </td>
+
+            </tr>
+        }
+    </table>
+
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
+
+    <a asp-action="Create" asp-controller="Bank" class="btn btn-default">Добавить банк</a><br />
+</section>

@@ -1,0 +1,64 @@
+﻿@using InternetBanking.ViewModels
+@using Microsoft.AspNetCore.Http
+@model InternetBanking.ViewModels.LoginViewModel
+@{
+    Layout =null;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internet Banking</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/loginstyle.css">
+    
+   
+</head>
+<body>
+<section class="form-section">
+   
+    @if (ViewData.ModelState.Keys.Any(k=> ViewData.ModelState[k].Errors.Any())) { 
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false, "Errors: ")
+        </div>
+    }
+    <div class="container">
+        <div class="card card-container">
+
+            <img id="profile-img" class="profile-img-card" src="~/images/user.png" alt="" style="background-color: #0099cc;"/>
+            <p id="profile-name" class="profile-name-card"></p>
+            <form method="post" asp-controller="User" asp-action="Login" class="form-signin"
+                  asp-route-returnUrl="@Model.ReturnUrl">
+                <div asp-validation-summary="ModelOnly"></div>
+                <span id="reauth-email" class="reauth-email"></span>
+                <input asp-for="Name" type="text" id="inputName" class="form-control" placeholder="Логин" required autofocus title="Header" data-toggle="popover" data-trigger="hover" data-content="Введите логин, высланный вам на почту ">
+                <span asp-validation-for="Name"></span>
+                <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Пароль" required title="Header" data-toggle="popover" data-trigger="hover" data-content="После трех неудачных попыток входа ваш аккант временно заблокируется">
+                <span asp-validation-for="Password"></span>
+                @if (Context.Session.GetString("AnswerToSend") != null)
+                    {
+                        <span id="passwordIncorrect">@Context.Session.GetString("AnswerToSend")</span>
+                    }
+
+
+                <button id="logInButton" class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Войти</button>
+            </form>
+            <a asp-controller="Manage" asp-action="CheckEmail">Забыли пароль?</a>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

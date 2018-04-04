@@ -1,0 +1,50 @@
+﻿@using InternetBanking.Models.SelectTable
+@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<PaymentСode>
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section" style="margin-top:40px">
+    <h1 class="title">Коды платежи</h1>
+    <div style="text-align: right">
+        <a asp-action="CreatePaymentCode" asp-controller="LimitPaymentCode" class="btn btn-default">Добавить код платеж</a><br />
+    </div>
+    <table class="table table-bordered table-hover" style="margin-top:20px">
+        <tr><th>Код платежа</th><th>Название платежа</th><th></th></tr>
+        @foreach (PaymentСode payment in Model.Objects)
+        {
+        <tr>
+            <td>@payment.Code</td>
+            <td>@payment.PaymentCodeName</td>
+            <td>
+                <a asp-action="EditPaymentCode" asp-controller="LimitPaymentCode" asp-route-paymentCodeId="@payment.Id">Редактировать</a>
+            </td>
+
+        </tr>
+        }
+    </table>
+
+
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
+
+
+</section>

@@ -1,0 +1,47 @@
+﻿@model InternetBanking.ViewModels.CheckEmailViewModel
+
+@{
+
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internet Banking</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="~/css/loginstyle.css">
+
+
+</head>
+<body>
+    <section class="form-section">
+
+        <div class="container">
+            <div class="card card-container">
+              
+                <h5> Ссылка для смены пароля отправится на электронную почту, которая была введена при регистрации</h5>
+                <form asp-action="CheckEmail" asp-controller="Manage">
+                    <div asp-validation-summary="ModelOnly"></div>
+                  
+                    <input type="text" asp-for="EmailConfirm" class="form-control" placeholder="Ваша электронная почта" required autofocus/>
+                    <span asp-validation-for="EmailConfirm"></span><br/>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Отправить</button>
+                   
+                </form>
+
+
+
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+

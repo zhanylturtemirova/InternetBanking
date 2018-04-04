@@ -1,0 +1,27 @@
+﻿@model InternetBanking.ViewModels.BlackListPasswordViewModel
+
+@{
+    Layout = "_Layout2";
+}
+
+
+<section class="form-section">
+    <h2 class="title">Редактирование Черного списка</h2>
+
+    <hr />
+    <div class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+            <form asp-action="EditBlackList">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <input type="submit" value="Сохранить" class="btn btn-primary admin-button" />
+                </div>
+            </form>
+        </div>
+ 
+</section>

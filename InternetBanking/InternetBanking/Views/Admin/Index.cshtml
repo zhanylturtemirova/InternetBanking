@@ -1,0 +1,277 @@
+﻿@{
+
+    Layout = "_Layout2";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+
+    <title>Internet Banking</title>
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="~/js/admin_script.js"></script>
+    <link href="~/css/admin_style.css" rel="stylesheet" type="text/css" />
+    
+    
+    <style>
+        li {
+            list-style-type: none;
+        }
+        
+        .iconcontainer_ {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .iconbox_ {
+            background: #ffffff;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+            padding: 20px 25px;
+            text-align: right;
+            display: block;
+            margin-top: 60px;
+            margin-bottom: 15px;
+        }
+        .iconbox-icon_ {
+            background-color: #008EED;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            margin-top: -70px;
+        }
+        .iconbox-icon_ span {
+            color: #fff;
+            font-size: 42px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 29px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .featureinfo_ h4 {
+            font-size: 26px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .featureinfo_ > p {
+            color: #000000;
+            font-size: 16px;
+            padding-top: 4px;
+            text-align: left;
+        }
+        .btn-default_ {
+            text-shadow: 0px 1px 0px #FFF;
+            background-image: linear-gradient(to bottom, #FFF 0px, #E0E0E0 100%);
+            background-repeat: repeat-x;
+            border-color: #CCC;
+            box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.15) inset, 0px 1px 1px rgba(0, 0, 0, 0.075);
+        }
+        .btn-default:hover,
+        .btn-default:focus {
+            background-color: #e0e0e0;
+            background-position: 0 -15px
+        }
+
+    </style>
+    
+
+</head>
+<body style="background-color: rgb(248, 248, 248);">
+
+    @*<div id="mySidenav" class="sidenav" style="margin-top:30px; padding-bottom: 30px;">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+
+        <ul>
+            <li>
+                <a href="#">Пользователи</a>
+                <ul>
+                    <li><a asp-controller="UserInfo" asp-action="Index">Пользователи</a></li>
+                    <li><a asp-controller="User" asp-action="RegisterPerson">Добавление пользователей</a></li>
+                    <li><a asp-controller="Company" asp-action="Index">Добавление компаний</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Справочные данные </a>
+                <ul>
+                    <li><a asp-controller="Bank" asp-action="Index">Банки</a></li>
+                    <li><a asp-controller="LimitPaymentCode" asp-action="Index">Лимиты</a></li>
+                    <li><a asp-controller="LimitPaymentCode" asp-action="PaymentCodeList">Коды платежей</a></li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="#">Валюты</a>
+                <ul>
+                    <li><a asp-controller="Currency" asp-action="Index">Добавление валют</a></li>
+                    <li><a asp-controller="ExchangeRate" asp-action="Index">Добавление курсов</a></li>
+                    <li><a href="#">Курс НБКР</a></li>
+                    <li><a href="#">Рыночный курс</a></li>
+                    <li> <a asp-controller="Admin" asp-action="ChooseNativeCurrency">Национальная валюта</a></li>
+                </ul>
+            </li>
+            <li> <a href="#">Выписки</a></li>
+            <li> <a asp-controller="Admin" asp-action="PasswordBlackList">Черный список паролей</a></li>
+            
+
+        </ul>
+    </div>
+
+    <div id="main">
+        <span style="font-size: 20px;  cursor: pointer" onclick="openNav()">&#9776; Меню</span>*@
+
+
+
+
+
+
+        <div class="container" style="padding-left: 80px;">
+            <div class="iconcontainer_" >
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="iconbox_">
+                            <div class="iconbox-icon_" >
+                                <span class="glyphicon glyphicon-book" ></span>            
+                            </div>
+                            <div class="featureinfo_">
+                                <h4 class="text-center">Система</h4>
+                                <p>Настройка системы: часовой пояс, календарь, национальная валюта, отключение сайта,редактор админ. панели</p>
+                                <a class="btn btn-default_ btn-sm" href="#" role="button">Далее »</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="iconbox_">
+                            <div class="iconbox-icon_">
+                                <span class="glyphicon glyphicon-tasks"></span>
+                            </div>
+                            <div class="featureinfo_">
+                                <h4 class="text-center">Шаблоны</h4>
+                                <p>
+                                Шаблоны сайта, формирование шаблонов и  ввод прикладной документации
+                                </p>
+                                <a class="btn btn-default_ btn-sm" href="#" role="button">Далее »</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="iconbox_">
+                            <div class="iconbox-icon_">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+                            <div class="featureinfo_">
+                                <h4 class="text-center">Сообщения</h4>
+                                <p>
+                                Рассылка сообщений, шаблоны сообщений
+                                </p>
+                                <a class="btn btn-default_ btn-sm" href="#" role="button">Далее »</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="iconbox_">
+                            <div class="iconbox-icon_">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </div>
+                            <div class="featureinfo_">
+                                <h4 class="text-center">Пользователи</h4>
+                                <p>
+                                Редактирование формы пользовательской информации
+                                </p>
+                                <a class="btn btn-default_ btn-sm" href="" about.php#bottom"" role="button">Далее »</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+
+            <table class="table" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-top: 10px; margin-left: 50px; background-color: white;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Общая статистика</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Режим работы сайта:</td>
+                        <td>Включен</td>
+
+                    </tr>
+                    <tr>
+                        <td>Общее количество польоватлей:</td>
+                        <td>@ViewBag.ClientsCount</td>
+
+                    </tr>
+                    <tr>
+                        <td>Зарегистрировано физических лиц:</td>
+                        <td>@ViewBag.OrdanaryUsersCount</td>
+                    </tr>
+                    <tr>
+                        <td>Зарегистрировано юридических лиц:</td>
+                        <td>@ViewBag.EmployeesUsersCount</td>
+                    </tr>
+                    <tr>
+                        <td>Заблокировано пользователей:</td>
+                        <td> @ViewBag.BlockedUsersCount </td>
+                    </tr>
+                    <tr>
+                        <td>Размер базы данных:</td>
+                        <td>@ViewBag.DbSize </td>
+                    </tr>
+                    <tr>
+                        <td>Общий размер кеша:</td>
+                        <td>Х Kb</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
+
+@section Scripts{
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "350px";
+            document.getElementById("main").style.marginLeft = "350px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }
+    </script>
+}
+
+
+

@@ -1,0 +1,33 @@
+﻿
+@using InternetBanking.ViewModels
+@using Microsoft.EntityFrameworkCore
+@model List<ExchangeRateForPartialViewViewModel>
+
+
+
+
+<table style="width: 600px; margin-top: 20px;" class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="3">Курсы валют</th>
+        </tr>
+        <tr>
+            <th>Валюта</th>
+            <th>Покупка</th>
+            <th>Продажа</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach(var item in Model)
+        {
+            <tr>
+            <td>@item.Name</td>
+            <td>@item.RateForPurchaise</td>
+            <td>@item.RateForSale</td>
+            </tr>
+        }
+    </tbody>
+  
+</table>

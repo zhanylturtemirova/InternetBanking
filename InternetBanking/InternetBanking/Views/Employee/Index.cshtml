@@ -1,0 +1,72 @@
+﻿@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<EmployeeInfo>
+
+@{
+    Layout = "_Layout2";
+    ViewData["Title"] = string.Format("Сотрудники {0}", "Company");
+}
+
+<section class="form-section">
+<h2>Сотрудники</h2>
+    <p>
+        <div style="text-align: right">
+            <a asp-action="RegisterEmployeeCompany" asp-controller="User"  asp-route-companyId="@ViewBag.CompanyId" class="btn btn-default">Добавить</a>
+        </div>
+    </p>
+    @if (TempData["AnswerToSend"] != null)
+    {
+        <span>@TempData["AnswerToSend"]</span>
+    }
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Наименование
+            </th>
+            <th>
+                Должность
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeInfo emp in Model.Objects)
+        {
+            <tr>
+                <td>
+                    <a asp-action="EmployeeInfo" asp-controller="Employee" asp-route-id="@emp.Id">@emp.FirstName</a>
+                </td>
+                <td>
+                    @emp.Position
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@emp.Id">Редактировать</a>
+                </td>
+                <td>
+                    <a asp-action="AdminSendMessageToChangePassword" asp-controller="Manage" asp-route-userId="@emp.UserId">Отправить ссылку на восстановление пароля</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+</section>

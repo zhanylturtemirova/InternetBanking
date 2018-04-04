@@ -1,0 +1,247 @@
+﻿@using InternetBanking.ViewModels
+@using InternetBanking.ViewModels.Enums
+@using InternetBanking.ViewModels.Paging
+@model  InternetBanking.ViewModels.Paging.PagingViewModel<InternetBanking.ViewModels.ConfirmTransferViewModel>
+@{
+    ViewData["Title"] = "GetTransfers";
+}
+
+<section>
+    <a asp-action="GetTransfers" class="btn btn-default" style="margin-top: 24px">Все</a>
+    <a asp-action="GetTransfers" asp-route-section="not_confirmed" style="margin-top: 24px"  class="btn btn-default">Неподтвержденные</a>
+    @if (ViewBag.Section == "all")
+    {
+        <h2 style="margin-top: 24px; margin-bottom: 18px">Переводы</h2>
+    }
+     @if (ViewBag.Section == "not_confirmed")
+     {
+        <h2 style="margin-top: 24px; margin-bottom: 18px">Переводы ожидающие подтверждения</h2>
+     }
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body"  id="message-span">
+                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        @if (Model.Objects.Count == 0)
+        {
+            <div>
+                <h3>Список пуст</h3>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover table-bordered ">
+                <tr>
+                    <td>Отправитель</td>
+                    <td>Получатель</td>
+                    <td>Сумма</td>
+                    <td>Дата</td>
+                    <td>Комментарий</td>
+                    <td>Состояние</td>
+                    <td>Возможные действия</td>
+                </tr>
+
+                @foreach (var confirmTransfer in Model.Objects)
+                {
+                    <tr id="tr-@confirmTransfer.Transfer.Id">
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-sender">@confirmTransfer.Transfer.AccountSender.Number</td>
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-receiver">@confirmTransfer.Transfer.AccountReceiver.Number</td>
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-amount">@confirmTransfer.Transfer.Amount</td>
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-date">@confirmTransfer.Transfer.TransferDate</td>
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-comment">@confirmTransfer.Transfer.Comment</td>
+                        @if (confirmTransfer.Transfer.TransferState.StateName == "NotConfirmed")
+                        {
+                            <td id="tr-@confirmTransfer.Transfer.Id-td-state" class="text-not-confirm">
+                                Не подтвержден
+                            </td>
+                        }
+                        @if (confirmTransfer.Transfer.TransferState.StateName == "Confirmed")
+                        {
+                            <td id="tr-@confirmTransfer.Transfer.Id-td-state" class="text-success">
+                                Завершен
+                            </td>
+                        }
+                        @if (confirmTransfer.Transfer.TransferState.StateName == "Canceled")
+                        {
+                            <td id="tr-@confirmTransfer.Transfer.Id-td-state" class="text-canceled">
+                                Отменен
+                            </td>
+                        }
+                        @if (confirmTransfer.Transfer.TransferState.StateName == "AccountIsLocked")
+                        {
+                            <td id="tr-@confirmTransfer.Transfer.Id-td-state" class="text-not-confirm">
+                               Ошибка - аккаунт был заблокирован
+                            </td>
+                        }
+                        @if (confirmTransfer.Transfer.TransferState.StateName == "BalanceNotEnough")
+                        {
+                            <td id="tr-@confirmTransfer.Transfer.Id-td-state" class="text-not-confirm">
+                                Ошибка - недостаточно средств
+                            </td>
+                        }
+
+                        <td id="tr-@confirmTransfer.Transfer.Id-td-actions">
+                            @if (confirmTransfer.Transfer.TransferState.StateName == TransferStatesEnum.NotConfirmed.ToString() && confirmTransfer.IsUserHaveRightOfConfirm)
+                            {
+                                <input type="button" value="Подтвердить" class="btn-success btn btn-small" onclick="confirmTransfer(@confirmTransfer.TransferId)" />
+                                <input type="button" value="Отменить" class="btn-danger btn btn-small" onclick="rejectTransfer(@confirmTransfer.TransferId)"/>
+                            }
+                        </td>
+                        <td>
+                            <div style="display: inline-block">
+                                <input type="button"class="btn btn-primary" value="Скачать"  onclick="location.href='@Url.Action("DownloadFile", "Transfer", new{receiver=confirmTransfer.Transfer.AccountReceiver.Number,sender =@confirmTransfer.Transfer.AccountSender.Number.ToString(),amount = confirmTransfer.Transfer.Amount, date=confirmTransfer.Transfer.TransferDate,
+                                                                                                                  comment =@confirmTransfer.Transfer.Comment,state=confirmTransfer.Transfer.TransferState.StateName.ToString()})'" />
+                            </div>
+                       </td>
+                        </tr>
+                
+                }
+
+            </table>
+        }
+    <div style="margin-bottom: 34px;">
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <a asp-action="GetTransfers"
+               asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+               asp-route-section=@ViewBag.Section
+               class="btn btn-default btn">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <a asp-action="GetTransfers"
+               asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+               asp-route-section=@ViewBag.Section
+               class="btn btn-default btn">
+                Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+    </div>
+</section>
+
+@section Scripts{ 
+    
+    <script>
+        function rejectTransfer(transferId) {
+            $.ajax({
+                url: '@Url.Action("Reject", "Transfer")',
+                type: 'POST',
+                data: { 'transferId': transferId },
+                success: function (data) {
+                    if (data.state == true) {
+                        $("#myModal").modal('show');
+                        if ("@ViewBag.Section" == "all") {
+                            updateTransfer(transferId);
+                        }
+                        else
+                        {
+                            $('#tr-' + transferId).hide();
+                        }
+                        document.getElementById('message-span').innerHTML = data.message;
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+                    else {
+                        document.getElementById('message-span').innerHTML = data.message;
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+                   
+                    
+                },
+                error: console.log('все плохо')
+            });
+        }
+    </script>
+    <script>
+        function confirmTransfer(transferId) {
+            $.ajax({
+                url: '@Url.Action("Confirm", "Transfer")',
+                type: 'POST',
+                data: { 'transferId': transferId },
+                success: function (data) {
+                    $("#myModal").modal('show');
+                    if (data.state == true) {
+                        if ("@ViewBag.Section" == "all") {
+                            updateTransfer(transferId);
+
+                           
+                        } else {
+                            $('#tr-' + transferId).hide();
+                        }
+                        document.getElementById('message-span').innerHTML = data.message;
+
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+
+                    } else {
+                        document.getElementById('message-span').innerHTML = data.message;                        
+                        setTimeout(function() {
+                            $('#myModal').modal('hide');;
+                        }, 1500);
+                    }
+
+
+
+
+                },
+                error: console.log('все плохо')
+            });
+        }
+
+        function updateTransfer(transferId) {
+            $.ajax({
+                url: '@Url.Action("UpdateTransferViewModel", "Transfer")',
+                type: 'POST',
+                data: { 'transferId': transferId },
+                success: function (data) {
+                    document.getElementById('tr-' + transferId + '-td-sender').innerHTML = data.senderAccount;
+                    document.getElementById('tr-' + transferId + '-td-receiver').innerHTML = data.receiverAccount;
+                    document.getElementById('tr-' + transferId + '-td-amount').innerHTML = data.аmount;
+                    document.getElementById('tr-' + transferId + '-td-date').innerHTML = data.date;
+                    document.getElementById('tr-' + transferId + '-td-state').innerHTML = data.state;
+                    if (data.state === "Завершен") {
+                        document.getElementById('tr-' + transferId + '-td-state').className = "text-success";
+                    }
+                    if (data.state === "Отменен") {
+                        document.getElementById('tr-' + transferId + '-td-state').className = "text-canceled";
+                    }
+                    if (data.state === "Не подтвержден"){
+                        document.getElementById('tr-' + transferId + '-td-state').className = "text-not-confirm";
+                    }
+                
+                  
+                    
+                    document.getElementById('tr-' + transferId + '-td-comment').innerHTML = data.comment;
+                    if (data.actions) {
+                        document.getElementById('tr-' + transferId + '-td-actions').innerHTML =
+                            "<input type=\"button\" value=\"Подтвердить\" class=\"btn-success btn btn-small\" onclick=\"confirmTransfer('transferId')\" />" +
+                            "<input type=\"button\" value=\"Отменить\" class=\"btn-danger btn btn-small\" onclick=\"rejectTransfer('transferId')\"/>";
+                    } else {
+                        document.getElementById('tr-' + transferId + '-td-actions').innerHTML = "";
+                    }
+
+                },
+                error: console.log('все плохо')
+            });
+        }
+    </script>
+}

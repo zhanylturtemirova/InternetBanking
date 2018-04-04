@@ -1,0 +1,86 @@
+﻿
+@using InternetBanking.ViewModels;
+@using Microsoft.AspNetCore.Hosting.Internal
+@using Microsoft.AspNetCore.Http
+@model InternetBanking.ViewModels.TwoFactorAuthViewModel
+
+@{
+    Layout = null;
+}
+@*<section class="form-section">
+        <h4 style="margin-top: 50px;"> Для входа в систему введите код, отправленный на вашу электронную почту</h4>
+        <form asp-action="TwoFactorAuth" asp-controller="Manage" method="post">
+
+            <div>
+                <label asp-for="CodeConfirm">Код подтверждения</label><br>
+                <input type="text" asp-for="CodeConfirm" />
+                <span asp-validation-for="CodeConfirm"></span>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px">
+                <input type="submit" value="Отправить" class="btn btn-default" />
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="visibility: hidden">
+                <input type="text" asp-for="UserId" value="@ViewBag.UserId" class="form-control" />
+            </div>
+            <div class="form-group" style="visibility: hidden">
+                <input type="text" asp-for="Code" value="@ViewBag.Code" class="form-control" />
+            </div>
+            <div class="form-group" style="visibility: hidden">
+                <input type="text" asp-for="SendCodeTime" value="@ViewBag.SendCodeTime" class="form-control" />
+            </div>
+        </form>
+    </section>*@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internet Banking</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="~/css/loginstyle.css">
+
+
+</head>
+<body>
+    <section class="form-section">
+
+        <div class="container">
+            <div class="card card-container" style="max-height: 300px;" >
+
+                <img id="profile-img" class="profile-img-card" src="~/images/user.png" alt="" style="background-color: #0099cc;" />
+                <p id="profile-name" class="profile-name-card"></p>
+
+                <form asp-action="TwoFactorAuth" asp-controller="Manage" method="post" class="form-signin">
+
+
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <span id="reauth-email" class="reauth-email"></span>
+                    <input asp-for="CodeConfirm" type="text" id="inputEmail" class="form-control" placeholder="Код подтверждения" required autofocus>
+                    <span asp-validation-for="CodeConfirm"></span>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Отправить</button>
+                    <div class="form-group" style="visibility: hidden">
+                        <input type="text" asp-for="UserId" value="@ViewBag.UserId" class="form-control" />
+                    </div>
+                    <div class="form-group" style="visibility: hidden">
+                        <input type="text" asp-for="Code" value="@ViewBag.Code" class="form-control" />
+                    </div>
+                    <div class="form-group" style="visibility: hidden">
+                        <input type="text" asp-for="SendCodeTime" value="@ViewBag.SendCodeTime" class="form-control" />
+                    </div>
+                </form>
+            
+                @*<a asp-controller="Manage" asp-action="CheckEmail">Забыли пароль?</a>*@
+
+            </div>
+        </div>
+        
+    </section>
+
+</body>
+</html>

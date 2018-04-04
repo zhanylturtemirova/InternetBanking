@@ -1,0 +1,281 @@
+﻿@model InternetBanking.ViewModels.UserEditViewModel
+
+@{
+    Layout = "_Layout2";
+    ViewData["Title"] = "Редактирование пользователя";
+}
+<section class="form-section">
+    <h2>Редактирование пользователя</h2>
+    <form method="post" asp-controller="UserInfo" asp-action="Edit">
+        <div asp-validation-summary="ModelOnly"></div>
+      
+        <input type="hidden" asp-for="User.ContactInfo.Id" />    
+        <input type="hidden" asp-for="User.PassportInfo.Id" />
+        <input type="hidden" asp-for="User.Id" />      
+        <input type="hidden" asp-for="User.User.Id"/>
+   
+        <div class="row">
+            <div class="form person-name col-md-6">
+                <h3>Данные клиента</h3>
+                <div class="input-group">
+                    <label asp-for="UserInfo.FirstName"></label><br />
+                    <input class="form-control" asp-for="UserInfo.FirstName" />
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.FirstName"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="UserInfo.SecondName"></label><br />
+                    <input class="form-control" asp-for="UserInfo.SecondName" />
+                    <span class="validation" asp-validation-for="UserInfo.SecondName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="UserInfo.MiddleName"></label><br />
+                    <input class="form-control" asp-for="UserInfo.MiddleName" />
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.MiddleName"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="UserInfo.TwoFactorOn"></label><br />
+                    <input type="radio" asp-for="UserInfo.TwoFactorOn" value=true />Вкл.
+                    <input type="radio" asp-for="UserInfo.TwoFactorOn" value=false />Выкл.
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.TwoFactorOn"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form data-info col-md-6">
+                <h3>Паспортные Данные</h3>
+                <div class="input-wrapper col-md-12">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.TypeOfDocumentId"></label><br />
+                        <select class="form-control" asp-for="PassportInfo.TypeOfDocumentId" asp-items="@Model.PassportInfo.TypeOfDocuments"></select>
+                        <div><span class="validation" asp-validation-for="PassportInfo.TypeOfDocumentId"></span></div>
+                    </div>
+                </div>
+                <div class="input-wrapper col-md-6">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.Series"></label><br />
+                        <input class="form-control" asp-for="PassportInfo.Series" />
+                        <div>
+                            <span class="validation" asp-validation-for="PassportInfo.Series"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-wrapper col-md-6">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.DateofExtradition"></label><br />
+                        <input class="form-control"  type="date" asp-for="PassportInfo.DateofExtradition"/>
+                        <div>
+                            <span class="validation" asp-validation-for="PassportInfo.DateofExtradition"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-wrapper col-md-6">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.Validaty"></label><br />
+                        <input class="form-control"  type="date" asp-for="PassportInfo.Validaty" />
+                        <div>
+                            <span class="validation" asp-validation-for="PassportInfo.Validaty"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-wrapper col-md-6">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.Number"></label><br />
+                        <input class="form-control" asp-for="PassportInfo.Number" />
+                        <div>
+                            <span class="validation" asp-validation-for="PassportInfo.Number"></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="input-wrapper col-md-6">
+                    <div class="input-group">
+                        <label asp-for="PassportInfo.IssuedBy"></label><br />
+                        <input class="form-control" asp-for="PassportInfo.IssuedBy" />
+                        <div>
+                            <span class="validation" asp-validation-for="PassportInfo.IssuedBy"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form person-information col-md-6">
+                <h3>Гражданство</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="UserInfo.CountryId"></label><br />
+
+                        <select class="form-control" asp-for="UserInfo.CountryId" asp-items="@Model.UserInfo.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <div>
+                            <span class="validation" asp-validation-for="UserInfo.CountryId"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>ИНН</h3>
+                <div class="input-group">
+                    <label asp-for="UserInfo.Inn"></label><br />
+                    <input class="form-control" asp-for="UserInfo.Inn" />
+
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.Inn"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form person-intelligence col-md-6">
+                <h3>Сведения о клиенте</h3>
+                <div class="input-group">
+                    <label asp-for="UserInfo.Gender"></label><br />
+                    <input type="radio" asp-for="UserInfo.Gender" value="male" />М
+                    <input type="radio" asp-for="UserInfo.Gender" value="female" />Ж
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.Gender"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="UserInfo.BirthDay"></label><br />
+                    <input class="form-control" type="date" asp-for="UserInfo.BirthDay" />
+                    <div>
+                        <span class="validation" asp-validation-for="UserInfo.BirthDay"></span>
+                    </div>
+                </div>
+                <h3>Место рождения</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="PlaceOfBirth.CountryId"></label><br />
+                        <select class="form-control" asp-for="PlaceOfBirth.CountryId" asp-items="@Model.PlaceOfBirth.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <span class="validation" asp-validation-for="PlaceOfBirth.CountryId"></span>
+                    </div>
+                </div>
+                <div class="select-form-wrapper ">
+                    <div class="input-group">
+                        <label asp-for="PlaceOfBirth.City"></label><br />
+                        <input class="form-control" asp-for="PlaceOfBirth.City" />
+                        <span class="validation" asp-validation-for="PlaceOfBirth.City"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form person-propiska col-md-6">
+                <h3>Адрес по прописке</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="LegalAddress.CountryId"></label><br />
+                        <select class="form-control" asp-for="LegalAddress.CountryId" asp-items="@Model.LegalAddress.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <span class="validation" asp-validation-for="LegalAddress.CountryId"></span>
+                    </div>
+                </div>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="LegalAddress.City"></label><br />
+                        <input class="form-control" asp-for="LegalAddress.City" />
+                        <span class="validation" asp-validation-for="LegalAddress.City"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.PostCode"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.PostCode" />
+                    <span class="validation" asp-validation-for="LegalAddress.PostCode"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.Street"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.Street" />
+                    <span class="validation" asp-validation-for="LegalAddress.Street"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LegalAddress.HouseAddress"></label><br />
+                    <input class="form-control" asp-for="LegalAddress.HouseAddress" />
+                    <span class="validation" asp-validation-for="LegalAddress.HouseAddress"></span>
+                </div>
+            </div>
+            <div class="form person-propiska col-md-6">
+                <h3>Адрес фактического проживанию</h3>
+                <div class="select-form-wrapper">
+                    <div class="input-group">
+                        <label asp-for="FactAddress.CountryId"></label><br />
+                        <select class="form-control" asp-for="FactAddress.CountryId" asp-items="@Model.FactAddress.Countries">
+                            <option value="">Please select one</option>
+                        </select>
+                        <span class="validation" asp-validation-for="FactAddress.CountryId"></span>
+                    </div>
+                </div>
+                <div class="select-form-wrapper ">
+                    <div class="input-group">
+                        <label asp-for="FactAddress.City"></label><br />
+                        <input class="form-control" asp-for="FactAddress.City" />
+                        <span class="validation" asp-validation-for="FactAddress.City"></span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.PostCode"></label><br />
+                    <input class="form-control" asp-for="FactAddress.PostCode" />
+                    <span class="validation" asp-validation-for="FactAddress.PostCode"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.Street"></label><br />
+                    <input class="form-control" asp-for="FactAddress.Street" />
+                    <span class="validation" asp-validation-for="FactAddress.Street"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="FactAddress.HouseAddress"></label><br />
+                    <input class="form-control" asp-for="FactAddress.HouseAddress" />
+                    <span class="validation" asp-validation-for="FactAddress.HouseAddress"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="form contact-information col-md-6">
+                <h3>Контатная информация</h3>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.MobilePhone"></label><br />
+                    <input id="phone" class="form-control" placeholder="+ 996 XXX YYYYYY" type="text" asp-for="ContactInfo.MobilePhone" />
+                    <span class="validation" asp-validation-for="ContactInfo.MobilePhone"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.CityPhone"></label><br />
+                    <input class="form-control" asp-for="ContactInfo.CityPhone" placeholder="0 XXXX YYYYYY" />
+                    <span class="validation" asp-validation-for="ContactInfo.CityPhone"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="UserInfo.Email"></label><br />
+                    <input class="form-control" asp-for="UserInfo.Email" />
+                    <span class="validation" asp-validation-for="UserInfo.Email"></span>
+                </div>
+            </div>
+
+            <div class="form person-information col-md-6">
+                <h3>Контактное лицо</h3>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.FullName"></label><br />
+                    <input class="form-control" asp-for="ContactInfo.FullName" />
+                    <span class="validation" asp-validation-for="ContactInfo.FullName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.Address"></label><br />
+                    <input class="form-control" asp-for="ContactInfo.Address" />
+                    <span class="validation" asp-validation-for="ContactInfo.Address"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="ContactInfo.PhoneNumber"></label><br />
+                    <input class="form-control" asp-for="ContactInfo.PhoneNumber" />
+                    <span class="validation" asp-validation-for="ContactInfo.PhoneNumber"></span>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary admin-button" value="Редактировать" />
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

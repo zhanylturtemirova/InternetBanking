@@ -1,0 +1,30 @@
+﻿@model InternetBanking.ViewModels.PaymentCodeInfoViewModel
+
+@{
+    Layout = "_Layout2";
+
+}
+<section class="form-section" style="margin-top:40px">
+    <h2 class="title">Добавить код платеж</h2>
+
+    <form method="post" asp-controller="LimitPaymentCode" asp-action="CreatePaymentCode">
+        <div asp-validation-summary="ModelOnly"></div>
+        
+            <div  class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+                <div class="input-group">
+                    <label asp-for="Code"></label><br />
+                    <input class="form-control" asp-for="Code" />
+                    <span class="validation" asp-validation-for="Code"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="PaymentCodeName"></label><br />
+                    <input class="form-control" asp-for="PaymentCodeName" />
+                    <span class="validation" asp-validation-for="PaymentCodeName"></span>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary admin-button" value="Добавить" />
+                </div>
+            </div>
+       
+    </form>
+</section>

@@ -1,0 +1,57 @@
+﻿@using InternetBanking.ViewModels
+@model InternetBanking.ViewModels.RegisterEmployeeViewModel
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section" style="margin-top:40px">
+    <h2>Регистрация нового сотрудника</h2>
+    <form method="post" asp-controller="User" asp-action="RegisterEmployeeCompany">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="CompanyId" value="@Model.CompanyId" />
+        <div class="row">
+            <div class="form person-name col-md-6">
+                <h3>Данные сотрудника</h3>
+                <div class="input-group">
+                    <label asp-for="FirstName"></label><br />
+                    <input id="FName" class="form-control" asp-for="FirstName" />
+                    <span id="FNameValid" class="validation" asp-validation-for="FirstName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="SecondName"></label><br />
+                    <input id="SName" class="form-control" asp-for="SecondName" />
+                    <span id="SNameValid" class="validation" asp-validation-for="SecondName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="MiddleName"></label><br />
+                    <input id="TName" class="form-control" asp-for="MiddleName" />
+                    <span id="TNameValid"  class="validation" asp-validation-for="MiddleName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="Position"></label><br />
+                    <input id="Position" class="form-control" asp-for="Position" />
+                    <span id="PositionValid"  class="validation" asp-validation-for="Position"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="Email"></label><br />
+                    <input id="Email" class="form-control" asp-for="Email" />
+                    <span id="EmailValid"  class="validation" asp-validation-for="Email"></span>
+                </div>
+            <div>
+                <input id="SendClick" type="submit" value="Регистрация" class="btn btn-primary admin-button" />
+            </div> 
+        </div>
+    </div>
+
+            @*<div>
+                    <label asp-for="Password"></label><br />
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div>
+                    <label asp-for="PasswordConfirm"></label><br />
+                    <input asp-for="PasswordConfirm" />
+                    <span asp-validation-for="PasswordConfirm"></span>
+                </div>*@
+
+    </form>
+</section>

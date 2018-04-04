@@ -1,0 +1,101 @@
+﻿@using InternetBanking.ViewModels
+@model List<InternetBanking.ViewModels.TemplateScheduleViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<section class="table-content">
+    <h1>Шаблоны платежей</h1>
+    <div style="text-align: right; margin: 20px">
+        <div style="text-align: right; display: inline-block">
+            <div style="margin-right: 10px"> <label>Шаблон внутребанковского платежа</label></div>
+            <a asp-action="CreateTemplateInnerTransfer" asp-controller="Template" class="btn btn-default">Создать</a>
+        </div>
+        <div style="text-align: right; display: inline-block">
+            <div style="margin-right: 10px"> <label>Шаблон межбанковского платежа</label> </div>
+            <a asp-action="CreateTemplateInterBankTransfer" asp-controller="Template" class="btn btn-default">Создать</a>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr><th>Название шаблона</th><th>Описание</th><th></th></tr>
+        </thead>
+
+        @foreach (TemplateScheduleViewModel t in Model)
+        {
+
+            <tr>
+                <td>
+                    <a asp-action="TemplateTransfer" asp-controller="Template" asp-route-templateId="@t.Template.Id">@t.Template.TempalteName </a>
+                </td>
+                <td>
+                    <div id="tiptext-@t.Template.Id" onmouseover="showDescription(@t.Template.Id)" @*onmouseout="hideDescription(@template.Id)" *@>
+                        @t.Template.TemplateDiscription
+                    </div>
+
+                </td>
+                <td>
+                    <div id="edit-action-@t.Template.Id">
+                        @if (t.IsScheduleExist)
+                        {
+
+                            <span id="delete-button-@t.Template.Id">
+                                <input type="button" value="Удалить расписание" onclick="deleteSchedule(@t.Template.Id)" class="btn btn-danger" />
+                            </span>
+                        }
+                        else
+                        {
+                            <a asp-action="AddPaymentSchedule" asp-controller="Template" asp-route-templateId="@t.Template.Id" class="btn btn-primary">Добавить расписание</a>
+                        }
+                    </div>
+                </td>
+
+            </tr>
+
+        }
+    </table>
+</section>
+
+@section Scripts{
+ 
+    <script>
+        function showDescription(templateId) {
+          
+            if (document.getElementById('child-' + templateId).className === "description") {
+                document.getElementById('child-' + templateId).className = "descShow";
+            } else {
+                document.getElementById('child-' + templateId).className = "description";
+            }
+            
+    </script>
+
+    <style>
+        .descShow {
+            display: inline-block;
+            position: absolute;
+            border: 1px solid #000;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+
+
+    <script>
+        function deleteSchedule(templateId) {
+            $.ajax({
+                url: '@Url.Action("DeletePaymentSchedule", "Template")',
+                type: 'POST',
+                data: { 'templateId': templateId },
+                success: function(data) {
+                    
+                    if (data.state === true) {
+                        document.getElementById('delete-button-' + templateId).remove();
+                        document.getElementById('edit-action-' + templateId).innerHTML =
+                            "<a class=\"btn btn-primary\" href=\"/Template/AddPaymentSchedule?templateId=" + templateId + "\">Добавить расписание</a>";
+                    }
+                },
+                error: console.log('все плохо')
+            });
+        }
+    </script>
+
+}

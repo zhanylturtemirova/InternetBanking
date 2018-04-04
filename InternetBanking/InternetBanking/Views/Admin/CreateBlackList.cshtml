@@ -1,0 +1,29 @@
+﻿
+
+@model InternetBanking.ViewModels.BlackListPasswordViewModel
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section">
+    <h2 class="title">Добавление в Черный список паролей</h2>
+
+    <hr />
+    <div class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+            <form asp-action="CreateBlackList">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <div>
+                        <span class="validation" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <input type="submit" value="Добавить" class="btn btn-primary admin-button" />
+                </div>
+            </form>
+        </div>
+   
+</section>

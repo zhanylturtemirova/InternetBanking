@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - InternetBanking</title>
+
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/LayoutsStyles/bootstrap.min.css">
+        <link rel="stylesheet" href="~/css/LayoutsStyles/bootstrap-select.css">
+        <link rel="stylesheet" href="~/css/LayoutsStyles/AdminFizRegistration.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+        @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+        asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        <link rel="stylesheet" href="~/css/LayoutsStyles/AdminFizRegistration.css" asp-append-version="true">
+        @*<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true">*@
+    </environment>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="~/js/admin_script.js"></script>
+    <link href="~/css/admin_style.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        li {
+            list-style-type: none;
+        }
+
+        .iconcontainer_ {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .iconbox_ {
+            background: #ffffff;
+            background-color: #ffffff;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+            padding: 20px 25px;
+            text-align: right;
+            display: block;
+            margin-top: 60px;
+            margin-bottom: 15px;
+        }
+
+        .iconbox-icon_ {
+            background-color: #008EED;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            margin-top: -70px;
+        }
+
+            .iconbox-icon_ span {
+                color: #fff;
+                font-size: 42px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 29px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+        .featureinfo_ h4 {
+            font-size: 26px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .featureinfo_ > p {
+            color: #000000;
+            font-size: 16px;
+            padding-top: 4px;
+            text-align: left;
+        }
+
+        .btn-default_ {
+            text-shadow: 0px 1px 0px #FFF;
+            background-image: linear-gradient(to bottom, #FFF 0px, #E0E0E0 100%);
+            background-repeat: repeat-x;
+            border-color: #CCC;
+            box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.15) inset, 0px 1px 1px rgba(0, 0, 0, 0.075);
+        }
+
+        .btn-default:hover,
+        .btn-default:focus {
+            background-color: #e0e0e0;
+            background-position: 0 -15px
+        }
+    </style>
+
+
+    
+</head>
+<body style="background-color: white;">
+   
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 30px;    position: fixed;width: 100%;">
+
+            <div class="container-fluid" style="background-color: #013243;">
+
+
+            <div class="navbar-header">
+                <a id="adminLogo" asp-area="" asp-controller="Admin" asp-action="Index" class="navbar-brand">АдминПанель</a>
+            </div>
+            <div class="navbar-header">
+            <span style="font-size: 20px;  cursor: pointer; margin-left: 100px; margin-top: -100px;" class="navbar-brand" onclick="openNav()" id="main-button">&#9776; Меню</span>
+                <div>
+                    <ul class="nav navbar-nav navbar-left" id="asd">
+                        <li>
+                            <a id="LeftNav" style="cursor: pointer;" class="navbar-brand" onclick="openNav()" id="main-button">&#9776; Меню</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                <ul class="nav navbar-nav navbar-right">
+                   
+                <li>
+                    <a>@User.Identity.Name</a>
+
+
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="LogOff">Выход</a>
+
+                    </li>
+
+            </ul>
+        </div>
+    </nav>
+}
+   <section>
+        <div id="mySidenav" class="sidenav" style="margin-top:30px; padding-bottom: 30px;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+
+            <ul>
+                <li>
+                    <a href="#">Пользователи</a>
+                    <ul>
+                        <li><a asp-controller="UserInfo" asp-action="Index">Пользователи</a></li>
+                        <li><a id="RegisterPerson" asp-controller="User" asp-action="RegisterPerson">Добавление пользователей</a></li>
+                        <li><a asp-controller="Company" asp-action="Index">Компании</a></li>
+                        <li><a id="AddCompany" asp-controller="Company" asp-action="AddCompany">Добавить компанию</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">Справочные данные </a>
+                    <ul>
+                        <li><a asp-controller="Bank" asp-action="Index">Банки</a></li>
+                        <li><a asp-controller="LimitPaymentCode" asp-action="Index">Лимиты</a></li>
+                        <li><a asp-controller="LimitPaymentCode" asp-action="PaymentCodeList">Коды платежей</a></li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="#">Валюты</a>
+                    <ul>
+                        <li><a asp-controller="Currency" asp-action="Index">Добавление валют</a></li>
+                        <li><a asp-controller="ExchangeRate" asp-action="Index">Добавление курсов</a></li>
+                        <li><a href="#">Курс НБКР</a></li>
+                        <li><a href="#">Рыночный курс</a></li>
+                        <li> <a asp-controller="Admin" asp-action="ChooseNativeCurrency">Национальная валюта</a></li>
+                    </ul>
+                </li>
+                <li> <a href="#">Выписки</a></li>
+                <li> <a asp-controller="Admin" asp-action="PasswordBlackList">Черный список паролей</a></li>
+
+            </ul>
+        </div>
+   </section>
+
+    <div id="main">
+       
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+
+        </div>
+    </div>
+
+        <footer class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="text-align: right">"© Copyright"</p>
+                    </div>
+                </div>
+            </div>
+
+
+</footer>
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-select.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</environment>
+
+<environment exclude="Development">
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+    </script>
+
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+</environment>
+
+
+@RenderSection("scripts", required: false)
+
+
+<script>
+    
+    function openNav() {
+       
+        if (document.body.style.backgroundColor === "white") {
+            document.getElementById("mySidenav").style.width = "350px";
+            document.getElementById("main").style.marginLeft = "350px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        } else {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style = "";
+            document.body.style.backgroundColor = "white";
+            document.getElementById("main-button").style.marginLeft = "0";
+        }
+        
+    }
+        
+    //function openNav() {
+    //    document.getElementById("mySidenav").style.width = "0";
+    //    document.getElementById("main").style.marginLeft = "0";
+    //    document.body.style.backgroundColor = "white";
+    //    document.getElementById("main-button").style.marginLeft = "0";
+    //}
+    
+ 
+</script>
+
+
+        
+</body>
+</html>

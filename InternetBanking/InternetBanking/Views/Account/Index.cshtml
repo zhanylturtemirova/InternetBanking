@@ -1,0 +1,53 @@
+﻿@using InternetBanking.ViewModels
+@model List<AccountWithBalance>
+
+@{
+    Layout = "_Layout2";
+    ViewData["Title"] = "Счета";
+}
+<section class="form-section">
+<h2>Счета @ViewBag.OwnerName</h2>
+<p>
+    <div style="text-align: right">
+        <a id="AddCompanyAccount" asp-action="CompanyAccountCreate" asp-controller="Account" asp-route-companyId="@ViewBag.OwnerId" class="btn btn-default">Добавить</a>
+    </div>
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Номер
+            </th>
+            <th>
+                Баланс
+            </th>
+            <th>
+                Валюта
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AccountWithBalance account in Model)
+        {
+        <tr>
+           
+            <td>
+                <a asp-action="AccountInfo" asp-controller="Account" asp-route-id="@account.Account.Id">  @account.Account.Number</a>
+
+            </td>
+                <td>
+                    @account.Balance
+                </td>
+                <td>
+                    @account.Account.Currency.Name
+                </td>
+                
+                <td>
+                    <a asp-action="AddMoneyUserAccount" asp-controller="Transfer" asp-route-accountId="@account.Account.Id">Пополнить счет</a>
+                </td>
+</tr>
+        }
+    </tbody>
+</table>
+</section>

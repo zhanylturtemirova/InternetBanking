@@ -1,0 +1,292 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model InternetBanking.ViewModels.UserEditViewModel
+
+@{
+    Layout = "_Layout2";
+    int increm = 0;
+}
+@inject IViewLocalizer Localizer
+
+<section class="form-section" style="margin-top:40px">
+    <h2>@Model.User.User.UserName</h2>
+    <div style="text-align: right">
+        <a asp-action="Edit" asp-controller="UserInfo" asp-route-userId="@Model.User.Id" class="btn btn-default">Редактировать</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:30%">
+                    Название
+                </th>
+                <th style="width:60%" colspan="2">
+                    Значение
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <a asp-action="UserAccounts" asp-controller="Account" asp-route-userId="@Model.User.Id">Счета</a>
+                </td>
+                <td>
+                    @foreach (Account account in Model.User.Accounts)
+            {
+                @Html.DisplayFor(model =>
+account.Number);
+        increm = increm + 1;
+        @if (Model.User.Accounts.Count() != increm)
+{
+        <span>, </span>
+}
+}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.FirstName)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.SecondName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.MiddleName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.Gender)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.CountryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.User.Country.CountryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.BirthDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.BirthDay)
+                </td>
+            </tr>
+            <tr><td><h4>Контактная информация</h4></td><td></td></tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactInfo.MobilePhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContactInfo.MobilePhone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactInfo.CityPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContactInfo.CityPhone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserInfo.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserInfo.Email)
+                </td>
+            </tr>
+            <tr><td><h4>Контактное лицо</h4></td><td></td></tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactInfo.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContactInfo.FullName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactInfo.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContactInfo.Address)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.ContactInfo.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContactInfo.PhoneNumber)
+                </td>
+            </tr>
+
+            <tr><td><h4>Паспортные данные</h4></td><td></td></tr>
+            <tr>
+
+                <td>
+                    @Html.DisplayNameFor(model => model.PassportInfo.Series)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PassportInfo.Series)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PassportInfo.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PassportInfo.Number)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PassportInfo.IssuedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PassportInfo.IssuedBy)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PassportInfo.DateofExtradition)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PassportInfo.DateofExtradition)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PassportInfo.Validaty)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PassportInfo.Validaty)
+                </td>
+            </tr>
+
+            <tr><td><h4>@Localizer["birthaddress"]</h4></td><td></td></tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PlaceOfBirth.CountryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlaceOfBirth.CountryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PlaceOfBirth.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlaceOfBirth.City)
+                </td>
+            </tr>
+
+            <tr><td><h4>@Localizer["factaddress"]</h4></td><td></td></tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FactAddress.CountryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FactAddress.CountryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FactAddress.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FactAddress.City)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FactAddress.PostCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FactAddress.PostCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FactAddress.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FactAddress.Street)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FactAddress.HouseAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FactAddress.HouseAddress)
+                </td>
+            </tr>
+
+            <tr><td><h4>@Localizer["legaladdress"]</h4></td><td></td></tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LegalAddress.CountryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LegalAddress.CountryName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LegalAddress.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LegalAddress.City)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LegalAddress.PostCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LegalAddress.PostCode)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LegalAddress.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LegalAddress.Street)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LegalAddress.HouseAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LegalAddress.HouseAddress)
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>

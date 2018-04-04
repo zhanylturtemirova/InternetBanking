@@ -1,0 +1,156 @@
+﻿@model InternetBanking.ViewModels.CreateTemplateInterBankTransferViewModel
+@{
+    ViewData["Title"] = "CreateTemplateInnerTransfer";
+}
+
+<section class="table-content">
+    <h2>Шаблон</h2>
+    <form method="post" asp-controller="Template" asp-action="CreateTemplateInterBankTransfer">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <label asp-for="Template.TempalteName"></label><br />
+                <input class="form-control" asp-for="Template.TempalteName" />
+                <div><span class="validation" asp-validation-for="Template.TempalteName"></span></div>
+            </div>
+            <div>
+                <label asp-for="Template.TemplateDiscription"></label><br />
+                <textarea class="form-control" asp-for="Template.TemplateDiscription"></textarea>
+                <div><span class="validation" asp-validation-for="Template.TemplateDiscription"></span></div>
+            </div>
+            <div>
+                <label asp-for="Template.IsSetSchedule"></label><br />
+                <input type="checkbox" onclick="open_close_ScheduleForm()" asp-for="Template.IsSetSchedule" />
+            </div>
+            @if (Model.Template.IsSetSchedule)
+            {
+                <div id="schedule-form">
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.IntervalCode"></label><br />
+                        <select class="form-control" asp-for="Template.PaymentScheduleViewModel.IntervalCode" asp-items="@Model.Template.PaymentScheduleViewModel.IntervalTypes">
+                            <option value="0">Выберите интервал</option>
+                        </select>
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.IntervalCode"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.DateStart"></label><br />
+                        <input type="date" class="form-control" asp-for="Template.PaymentScheduleViewModel.DateStart" />
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.DateStart"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.DateEnd"></label><br />
+                        <input type="date" value="" class="form-control" asp-for="Template.PaymentScheduleViewModel.DateEnd" />
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.DateEnd"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div id="schedule-form" style="display: none;">
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.IntervalCode"></label><br />
+                        <select class="form-control" asp-for="Template.PaymentScheduleViewModel.IntervalCode" asp-items="@Model.Template.PaymentScheduleViewModel.IntervalTypes">
+                            <option value="0">Выберите интервал</option>
+                        </select>
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.IntervalCode"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.DateStart"></label><br />
+                        <input type="date" class="form-control" asp-for="Template.PaymentScheduleViewModel.DateStart" />
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.DateStart"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Template.PaymentScheduleViewModel.DateEnd"></label><br />
+                        <input type="date" value="" class="form-control" asp-for="Template.PaymentScheduleViewModel.DateEnd" />
+                        <div>
+                            <span class="validation" asp-validation-for="Template.PaymentScheduleViewModel.DateEnd"></span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <br />
+                <label asp-for="Transfer.PaymentCodeId"></label><br />
+                <select class="selectpicker" data-live-search="true" asp-for="Transfer.PaymentCodeId" asp-items="@Model.Transfer.PaymentCode">
+                    <option value="">Выберите код платежа</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="Transfer.PaymentCodeId"></span></div>
+            </div>
+
+
+            <div>
+                <br />
+                <label asp-for="Transfer.Transfer.AccountSenderId"></label><br />
+                <select class="selectpicker" asp-for="Transfer.Transfer.AccountSenderId" asp-items="@Model.Transfer.Transfer.UserAccounts">
+                    <option value="">Выберите свой счет</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="Transfer.Transfer.AccountSenderId"></span></div>
+            </div>
+            <div>
+                <label asp-for="Transfer.Transfer.Amount"></label><br />
+                <input class="form-control" type="number" oninput="up(this)" step="0.01" id="amountinput" placeholder="0,00" asp-for="Transfer.Transfer.Amount" />
+                <div><span class="validation" asp-validation-for="Transfer.Transfer.Amount"></span></div>
+            </div>
+            <div>
+                <label asp-for="Transfer.Transfer.Comment"></label><br />
+                <textarea class="form-control" asp-for="Transfer.Transfer.Comment"></textarea>
+                <div><span class="validation" asp-validation-for="Transfer.Transfer.Comment"></span></div>
+            </div>
+        </div>
+        <div class="form col-lg-3 col-md-4 col-sm-6  col-xs-12">
+            <div>
+                <br />
+                <label asp-for="Transfer.BankId"></label><br />
+                <select class="selectpicker" asp-for="Transfer.BankId" asp-items="@Model.Transfer.Banks">
+                    <option value="">Выберите банк</option>
+                </select>
+                <div> <span class="validation" asp-validation-for="Transfer.BankId"></span></div>
+            </div>
+            <div>
+                <br />
+                <label asp-for="Transfer.Transfer.ReceiverAccountNumber"></label><br />
+                <input class="form-control" type="number" asp-for="Transfer.Transfer.ReceiverAccountNumber" />
+                <div><span class="validation" asp-validation-for="Transfer.Transfer.ReceiverAccountNumber"></span></div>
+            </div>
+            <div>
+                <label asp-for="Transfer.ReciverName"></label><br />
+                <input class="form-control" asp-for="Transfer.ReciverName" />
+                <div> <span class="validation" asp-validation-for="Transfer.ReciverName"></span></div>
+            </div>
+
+            <div style="margin-top: 12px;">
+                <input type="submit" class="btn btn-primary" onclick="return name " value="Сохранить" />
+            </div>
+
+        </div>
+    </form>
+</section>
+
+
+@section Scripts
+    {
+    <script>
+        function open_close_ScheduleForm() {
+
+            if (document.getElementById('schedule-form').style.display === 'none') {
+                document.getElementById('schedule-form').style.display = 'inline-block';
+            } else {
+                document.getElementById('schedule-form').style.display = 'none';
+            }
+            console.log("jr");
+        }
+    </script>
+}

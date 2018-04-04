@@ -1,0 +1,48 @@
+﻿@model InternetBanking.ViewModels.LimitInfoViewModel
+
+@{
+    Layout = "_Layout2";
+
+}
+<section class="form-section" style="margin-top:40px">
+    <h2 class="title">Добавить лимит</h2>
+
+    <form method="post" asp-controller="LimitPaymentCode" asp-action="CreateLimit">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div  class="form col-lg-4 col-md-5 col-sm-6  col-xs-12">
+            
+                <div class="input-group">
+                    <label asp-for="LimitName"></label><br />
+                    <input class="form-control" asp-for="LimitName" />
+                    <span class="validation" asp-validation-for="LimitName"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LimitAmount"></label><br />
+                    <input class="form-control" type="number" oninput="up(this)" step="0.01" id="amountinput" placeholder="0,00" asp-for="LimitAmount" />
+                    <span class="validation" asp-validation-for="LimitAmount"></span>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary admin-button" value="Добавить" />
+                </div>
+            </div>
+      
+    </form>
+</section>
+
+@section Scripts{
+
+
+    <script>
+        document.getElementById('amountinput').onkeypress = function (e) {
+            if (this.value.indexOf(".") != '-1' || this.value.indexOf(",") != '-1') {
+                return !(/[.,]/.test(String.fromCharCode(e.charCode)));
+            }
+        }
+
+        function up(e) {
+            if (e.value.indexOf(".") != '-1') {
+                e.value = e.value.substring(0, e.value.indexOf(".") + 3);
+            }
+        }
+
+    </script>}

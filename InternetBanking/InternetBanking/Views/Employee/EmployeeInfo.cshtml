@@ -1,0 +1,76 @@
+﻿@model EmployeeInfo
+
+@{
+    Layout = "_Layout2";
+}
+
+<section class="form-section">
+    <h2>@String.Format("{0} {1} {2}", Model.FirstName, Model.MiddleName, Model.SecondName)</h2>
+    <div style="text-align: right">
+        <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="btn btn-default">Редактировать</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width:30%">
+                    Название
+                </th>
+                <th style="width:60%" colspan="2">
+                    Значение
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.MiddleName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SecondName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Position)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Company.NameCompany)
+                </td>
+                <td>
+                    <a asp-action="CompanyInfo" asp-controller="Company" asp-route-id="@Model.CompanyId">
+                    @Html.DisplayFor(model => model.Company.NameCompany)</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.User.Email)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+

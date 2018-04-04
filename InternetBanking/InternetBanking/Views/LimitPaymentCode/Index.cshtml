@@ -1,0 +1,50 @@
+﻿@using InternetBanking.Models.SelectTable
+@using InternetBanking.ViewModels.Paging
+@model InternetBanking.ViewModels.Paging.PagingViewModel<Limit>
+
+@{
+    Layout = "_Layout2";
+}
+<section class="form-section" style="margin-top:40px">
+    <h1 class="title">Лимиты</h1>
+    <div style="text-align: right">
+        <a asp-action="CreateLimit" asp-controller="LimitPaymentCode" class="btn btn-default">Добавить лимит</a><br/>
+      </div>
+        <table class="table table-bordered table-hover" style="margin-top:20px">
+            <tr><th>Название лимита</th><th>Сумма лимита</th><th></th></tr>
+            @foreach (Limit limit in Model.Objects)
+            {
+                <tr>
+                    <td>@limit.LimitName</td>
+                    <td>@limit.LimitAmount</td>
+                    <td>
+                        <a asp-action="EditLimit" asp-controller="LimitPaymentCode" asp-route-limitId="@limit.Id">Редактировать</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+
+
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+               class="btn btn-default btn">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+               class="btn btn-default btn">
+                Вперед
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        }
+
+
+
+</section>

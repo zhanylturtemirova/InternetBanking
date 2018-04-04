@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNetCore.Http
+@using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical
+@model InternetBanking.ViewModels.AccountTransfersViewModel
+
+@{
+    Layout = "_Layout";
+    int i = 0;
+}
+
+<section class="table-content" id="pnlContents">
+    <h3 class="hStatement"  >Сводная выписка по счету</h3>
+    <table id="pnlContents" runat="server" class="table table-hover table-bordered">
+        <tr>
+            <td>
+                Клиент
+            </td>
+            <td>
+                @Context.Session.GetString("FullName")
+            </td>
+        </tr>
+        <tbody>
+        <tr>
+            <td>
+                Номер счета
+            </td>
+            <td>
+                @Model.Account.Number @Model.Account.Currency.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Период
+            </td>
+            <td>
+                @Model.FromDate - @Model.ToDate
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form asp-action="AccountTransfers" method="get" style="margin-bottom: 20px">
+
+        <div class="row">
+            <div class="form person-name col-md-8">
+                <div class="col-md-5 ">
+                    <input type="date" class="form-control" asp-for="FromDate">
+                </div>
+                <div class="col-md-5">
+                    <input type="date" class="form-control" asp-for="ToDate">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-default" value="Показать"/>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <table id="pnlContents" class="table table-hover table-bordered ">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Дата</th>
+            <th>Счет-корреспондент</th>
+            <th>Расход</th>
+            <th>Приход</th>
+            <th>Назначение платежа</th>
+            <th>Курс</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Transfers)
+        {
+
+            i = i + 1;
+           <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    @item.TransferDate.ToString("d")
+                </td>
+               <td>
+                   @item.AccountNumber
+               </td>
+               <td>
+                   @item.CreditAmount
+               </td>
+               <td>
+                   @item.DebitAmount
+               </td>
+               <td>
+                   @item.Comment
+               </td>
+               <td>
+                   @item.Rate
+               </td>
+           </tr>          
+        }
+        </tbody>
+    </table>
+</section>
+<div style="padding-bottom: 80px">
+    <div style="display: inline-block">
+        <form asp-action="AccountTransfers" method="get">
+            <input type="hidden" asp-for="FullName" value="@Context.Session.GetString("FullName")"/>
+            <input type="hidden" asp-for="FromDate" value="@Model.FromDate"/>
+            <input type="hidden" asp-for="ToDate" value="@Model.ToDate"/>
+            <input type="hidden" asp-for="Excel" value="True"/>
+            <input type="submit" value="Excel!" class="btn btn-success"/>
+        </form>
+    </div>
+    <div style="display: inline-block">
+        <input type="button" onclick="PrintPanel();" style="cursor: pointer" value="Печать" class="btn btn-primary" />
+    </div>
+</div>
+
+   
+@section Scripts
+{   
+    <script type = "text/javascript">
+        function PrintPanel() {
+            var panel = document.getElementById("pnlContents");
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(panel.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function () {
+                printWindow.print();
+            }, 500);
+            return false;
+        }
+    </script>
+}

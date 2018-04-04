@@ -1,0 +1,81 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model InternetBanking.ViewModels.ConvertConversionToDocViewModel
+
+@{
+    ViewData["Title"] = "HtmlToStringPartialView";
+}
+
+
+<table class="table table-bordered ">
+    <thead>
+        <tr>
+            <th colspan="3">Параметры конвертации</th>
+        </tr>
+        <tr>
+            <th colspan="3">Курсы, по которым проходит конвертация, определяются в момент совершения операции </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                Со счета
+            </td>
+            <td>
+
+                <div>
+                     <span> @Model.AccountFromNumber</span>
+                </div>
+
+            </td>
+            <td rowspan="2">
+                <span>@Model.CurrencyFromName</span>
+
+            </td>
+
+        </tr>
+    <tr>
+        <td>Cумма</td>
+        <td>
+
+            <span>@Model.AmountSend</span>
+        </td>
+           
+    </tr>
+    <tr>
+        <td>Курс</td>
+        <td>
+            <span>@Model.CurrencyFromRate</span>
+        </td>
+    </tr>
+        <tr>
+            <td>
+                На счет
+            </td>
+            <td>
+                 <span> @Model.AccountFromNumber</span>
+            </td>
+            <td rowspan="2">
+                <span>@Model.CurrencyToName</span>
+
+            </td>
+        </tr>
+    <tr>
+        <td>Сконвертированная сумма</td>
+        <td>
+            <span>@Model.AmountReceive</span>
+                
+        </td>
+           
+    </tr>
+    <tr>
+        <td>Курс</td>
+        <td>
+
+            <span>@Model.CurrencyToRate</span>
+        </td>
+           
+    </tr>
+
+    </tbody>
+</table>

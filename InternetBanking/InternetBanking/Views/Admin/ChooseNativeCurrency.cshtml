@@ -1,0 +1,64 @@
+﻿@using Microsoft.EntityFrameworkCore
+@model InternetBanking.ViewModels.NativeCurrencyViewModel
+
+@{
+
+    Layout = "_Layout2";
+}
+
+<section class="form-section">
+
+    <div class="container">
+
+        <div class="card card-container" style="margin-top: 20px;">
+
+            <form method="post" asp-controller="Admin" asp-action="ChooseNativeCurrency">
+                <div asp-validation-summary="ModelOnly"></div>
+                @*<div style="display: none" asp-for="@Model.NativeCurrencyId">
+                    @Model.NativeCurrencyId
+                </div>*@
+                <table style="width: 500px; margin-top: 20px;"class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th colspan="2" >Национальная валюта</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                Текущая национальная валюта
+                            </td>
+                            <td>
+                                <div asp-for="@Model.NativeCurrencyName">
+                                    @Model.NativeCurrencyName
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Сменить национальную валюту</td>
+                            <td>
+
+                                <select class="form-control" asp-for="@Model.CurrencyId" asp-items="@Model.Currencies"></select>
+                                <div>
+                                    <span class="validation" asp-validation-for="CurrencyId"></span>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 12px;">
+                    <input type="submit" class="btn btn-primary" value="Сохранить" />
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+
+</section>
+
