@@ -37,82 +37,80 @@
                             <img src="~/@Context.Session.GetString("Logo")" width="100" height="100" />
                         </div>
                         <p>@Localizer["Hello"] <span> @Context.Session.GetString("FullName")</span></p>
-
-
                     </div>
                     <div style="float: right; text-align: right;">
                         <p><span> @Context.Session.GetString("Email")</span></p>
-                        <button id="myBtn">Сменить пароль</button>
-                        <!-- The Modal -->
-                        <div id="myModal" class="modal">
+                        <p><a asp-action="ChangePassword" asp-controller="Manage" asp-route-id="@ViewBag.UserId">Сменить пароль</a></p>
+                       <button id="myBtn">Сменить пароль</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal" style="  display: none;position: fixed;z-index: 1;padding-top: 100px;
+ left: 0;top: 0;width: 100%;height: 100%;overflow: auto;background-color: rgb(0,0,0); 
+ background-color: rgba(0,0,0,0.4);">
 
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <h2>Смена пароля</h2>
-                                </div>
-                                <div class="modal-body">
-                                    <form asp-action="ChangePassword" asp-controller="Manage" method="post" class="form-signin">
-                                        <div asp-validation-summary="ModelOnly"></div>
-                                        <span id="reauth-email" class="reauth-email"></span>
-                                        <input id="OldPassword" type="password" class="form-control" placeholder="@Localizer["OldPassword"]" required autofocus>
-                                        <span></span>
+                <!-- Modal content -->
+                <div style=" position: relative;background-color: #fefefe;margin: auto;padding: 0;
+ border: 1px solid #888;width: 35%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+ -webkit-animation-name: animatetop;-webkit-animation-duration: 0.4s;animation-name: animatetop;
+ animation-duration: 0.4s" class="modal-content">
+                    <div class="modal-header" style="text-align: center; padding: 2px 16px;background-color: #337ab7;color: white;">
+                        <span class="close">&times;</span>
+                        <h2>Смена пароля</h2>
+                    </div>
+                    <div class="modal-body" style="padding: 2px 16px; ">
+                        <form  class="form-signin formLayout" style=" margin: 10px 20px 10px 5px ;">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <span id="reauth-email" class="reauth-email"></span>
+                            <input id="OldPassword" type="password" class="form-control" placeholder="@Localizer["OldPassword"]" style="margin: 10px;" required autofocus>
+                            <span></span>
 
-                                        <input id="NewPassword" type="password" class="form-control" placeholder="@Localizer["NewPassword"]" required autofocus title="@Localizer["Error"]" data-toggle="popover" data-trigger="hover" data-content="@Localizer["Error"]">
-                                        <span></span>
+                            <input id="NewPassword" type="password" class="form-control" placeholder="@Localizer["NewPassword"]" style="margin: 10px;" required autofocus title="@Localizer["Error"]" data-toggle="popover" data-trigger="hover" data-content="@Localizer["Error"]">
+                            <span></span>
 
-                                        <input id="ConfirmPassword" type="password" id="inputPassword" class="form-control" placeholder="@Localizer["ConfirmPassword"]" required autofocus>
-                                        <span></span>
-                                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">@Localizer["Save"]</button>
+                            <input id="ConfirmPassword" type="password" id="inputPassword" class="form-control" placeholder="@Localizer["ConfirmPassword"]" style="margin: 10px;" required autofocus>
+                            <span></span>
+                            <button id="changePassword" class="btn btn-lg btn-primary btn-block btn-signin" type="submit" style="width: 50%; margin: 0 auto;">@Localizer["Save"]</button>
 
-                                    </form>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        </form>
                     </div>
 
-                    <div>
+                </div>
 
+            </div>
                     </div>
-
-                    <div class="clearfix"></div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <section class="nav-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="nav">
-                        @*<li><a asp-action="Index" asp-controller="User">@Localizer["Cabinet"]</a></li>*@
-                        <li><a asp-action="Index" asp-controller="User">@Localizer["Cabinet"]</a></li>
+        <section class="nav-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav">
+                            @*<li><a asp-action="Index" asp-controller="User">@Localizer["Cabinet"]</a></li>*@
+
                         <li><a asp-action="Index" asp-controller="User">@Localizer["Accounts"]</a></li>
-                        <li><a asp-action="Transfer" asp-controller="Transfer">@Localizer["Transfer"]</a></li>
+                            <li><a asp-action="GetTransfers" asp-controller="Transfer">История платежей</a></li>
+                            <li><a asp-action="Transfer" asp-controller="Transfer">@Localizer["Transfer"]</a></li>
                         <li><a asp-action="Index" asp-controller="Template">@Localizer["Template"]</a></li>
                         <li style="float: right;">
 
                             <a class="enter-but btn pull-right" asp-action="LogOff" asp-controller="User">@Localizer["Exit"]</a>
                         </li>
                         @*<li class="btn-b-bun">
-                              <a href="#">Dropdown <b class="caret"></b></a>
-                              <ul class=" b-menu">
-                                <li><a href="#">Действие</a></li>
-                                <li><a href="#">Другое действие</a></li>
-                                <li><a href="#">Что-то еще</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Отдельная ссылка</a></li>
-                              </ul>
-                            </li>*@
-                    </ul>
-                </div>
+          <a href="#">Dropdown <b class="caret"></b></a>
+          <ul class=" b-menu">
+            <li><a href="#">Действие</a></li>
+            <li><a href="#">Другое действие</a></li>
+            <li><a href="#">Что-то еще</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Отдельная ссылка</a></li>
+          </ul>
+        </li>*@
+                        </ul>
+                    </div>
             </div>
         </div>
     </section>
@@ -158,37 +156,7 @@
 
     </environment>
 
-    @RenderSection("Scripts", false)
+    @*@RenderSection("Scripts", false)*@
 </body>
 </html>
 
-@section Scripts{
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById('myModal');
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-}

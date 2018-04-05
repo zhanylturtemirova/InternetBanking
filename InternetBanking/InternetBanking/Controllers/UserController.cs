@@ -108,10 +108,11 @@ namespace InternetBanking.Controllers
                 }
                 HttpContext.Session.SetString("FullName", userName);
                 HttpContext.Session.SetString("Logo", logoCompany);
+                HttpContext.Session.SetString("Email", userService.FindUserByName(User.Identity.Name).Email);
 
                 model.NBKRRates = exchangeRateService.GetLastExchangeRatesByDate().Where(r => r.ExchangeRateTypeId == 1).ToList();
                 model.MarketRates = exchangeRateService.GetLastExchangeRatesByDate().Where(r => r.ExchangeRateTypeId == 2).ToList();
-
+                ViewBag.UserId = UserIdFromUsers;
                 return View(model);
             }
 
